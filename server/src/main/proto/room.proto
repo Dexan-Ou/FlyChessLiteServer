@@ -1,0 +1,13 @@
+package org.alayse.marsserver.proto.game;
+
+
+message RoomRequest {
+    required string room = 1;
+}
+
+message RoomResponseProxy {
+    required string content = 1;
+    required string nextplayer = 2;
+    repeated string receiver = 3;
+}
+

@@ -1,0 +1,34 @@
+package org.alayse.marsserver.proto.game;
+
+
+message MessagePushProxy {
+    required string room = 1;
+    required string content = 2;
+    required string nextplayer = 3;
+}
+
+message SendActionRequest {
+    required string from = 1;
+    required string content = 2;
+    required string room = 3;
+}
+
+
+message SendActionResponse {
+
+    enum Error {
+        ERR_OK = 0;
+        ERR_SYS = -1;
+    }
+
+    required int32 err_code = 1;
+    required string err_msg = 2;
+}
+
+message SendActionProxyResponse {
+
+    required SendActionResponse response = 1;
+    required MessagePushProxy msg = 2;
+    repeated string receiver = 3;
+}
+
