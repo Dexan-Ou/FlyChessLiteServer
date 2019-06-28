@@ -29,11 +29,11 @@ public class informGameStartCgi {
 
             logger.info(LogUtils.format("inform game start room=%s", request.getRoom()));
 
-            GameRoom.getInstance().roomList.get(request.getRoom()).startGame();
+            String content = GameRoom.getInstance().roomList.get(request.getRoom()).startGame();
 
             final Room.RoomResponseProxy response = Room.RoomResponseProxy.newBuilder()
-                    .setContent("")
-                    .setNextplayer("")
+                    .setContent(content)
+                    .setNextplayer("0")
                     .addAllReceiver(GameRoom.getInstance().roomList.get(request.getRoom()).getRoomStatus().colorMap.keySet())
                     .build();
 

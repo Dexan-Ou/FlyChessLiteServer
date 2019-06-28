@@ -60,10 +60,10 @@ public class GameHandler {
     }
 
     public String startGame(){
-        game = new Game(getPlayerSize());
+        game = new Game(getPlayerSize(), 0);
         return "game start";
     }
-    public String runOneRound(String content){
+    public GameStatus runOneRound(String content){
         String actions = game.run(content);
         String actionArray[] = actions.split(";");
         int order = Integer.parseInt(actionArray[actionArray.length - 1].split(",")[0].substring(1));
@@ -83,8 +83,7 @@ public class GameHandler {
         for(int i = 0;i < actionArray.length - 1;i ++){
             actionSequence = actionSequence + actionArray[i] + ";";
         }
-        actionSequence = actionSequence + nextplayer;
-        return actionSequence;
+        return new GameStatus(actionSequence, nextplayer);
     }
 
 }

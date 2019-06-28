@@ -1,5 +1,6 @@
 package org.alayse.marsserver.webserver;
 
+import org.alayse.marsserver.game.GameStatus;
 import org.alayse.marsserver.logicserver.GameRoom;
 import org.alayse.marsserver.proto.game.Game;
 import org.alayse.marsserver.utils.LogUtils;
@@ -33,23 +34,16 @@ public class SendActionCgi {
             int retCode = Game.SendActionResponse.Error.ERR_OK_VALUE;
             String errMsg = "congratulations, " + request.getFrom();
 
-            String changelog = GameRoom.getInstance().roomList.get(request.getRoom()).runOneRound(request.getContent());
-            String actionArray[] = changelog.split(";");
-            String nextPlayer = actionArray[actionArray.length - 1];//下一个玩家userName
-            String actionSequence = "";//动作序列，用;分割
-            for(int i = 0;i < actionArray.length - 1;i ++){
-                actionSequence = actionSequence + actionArray[i] + ";";
-            }
-
+            GameStatus changelog = GameRoom.getInstance().roomList.get(request.getRoom()).runOneRound(request.getContent());
             final Game.SendActionProxyResponse response = Game.SendActionProxyResponse.newBuilder()
                     .setResponse(Game.SendActionResponse.newBuilder()
                             .setErrCode(retCode)
                             .setErrMsg(errMsg)
                             .build())
                     .setMsg(Game.MessagePushProxy.newBuilder()
-                            .setContent(actionSequence)
+                            .setContent(changelog.content)
                             .setRoom(request.getRoom())
-                            .setNextplayer(nextPlayer)
+                            .setNextplayer(changelog.nextPlayer)
                             .build())
                     .addAllReceiver(GameRoom.getInstance().roomList.get(request.getRoom()).getRoomStatus().colorMap.keySet())
                     .build();
