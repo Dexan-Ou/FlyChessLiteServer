@@ -27,12 +27,12 @@ public class LeftRoomCgi {
         try {
             final Main.JoinRoomRequest request = Main.JoinRoomRequest.parseFrom(is);
 
-            logger.info(LogUtils.format("request from user=%s, join room=%s", request.getUser(), request.getRoomname()));
+            logger.info(LogUtils.format("request from user=%s, token=%s, left room=%s", request.getUser(), request.getAccessToken(), request.getRoomname()));
 
             int retCode = Main.MsgResponse.Error.ERR_OK_VALUE;
             String errMsg = "congratulations, " + request.getUser();
 
-            GameRoom.getInstance().leftRoom(request.getUser());
+            GameRoom.getInstance().leftRoom(request.getAccessToken());
 
             final Main.MsgResponse response = Main.MsgResponse.newBuilder()
                     .setRetcode(retCode)
@@ -47,7 +47,7 @@ public class LeftRoomCgi {
             return Response.ok(stream).build();
 
         } catch (Exception e) {
-            logger.info(LogUtils.format("%s", e));
+            logger.info(LogUtils.format("request invalid %s", e));
         }
 
         return null;

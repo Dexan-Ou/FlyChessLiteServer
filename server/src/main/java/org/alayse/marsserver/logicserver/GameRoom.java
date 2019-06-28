@@ -56,6 +56,6 @@ public class GameRoom {
     public String getPlayerRoom(String userName){
         if (playerList.containsKey(userName))
             return playerList.get(userName);
-        return null;
+        return "";
     }
 }

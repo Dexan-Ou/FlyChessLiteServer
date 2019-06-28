@@ -14,12 +14,12 @@ enum CmdID {
 }
 
 message HelloRequest {
-    optional string access_token = 1;
+    required string access_token = 1;
 }
 
 
 message HelloResponse {
-    optional string access_token = 1;
+    required string access_token = 1;
 }
 
 message Room {

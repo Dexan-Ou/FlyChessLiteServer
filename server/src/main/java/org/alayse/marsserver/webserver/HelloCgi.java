@@ -69,7 +69,7 @@ public class HelloCgi {
             return Response.ok(stream).build();
 
         } catch (Exception e) {
-            logger.info(LogUtils.format("request invalid", e));
+            logger.info(LogUtils.format("request invalid %s", e));
         }
 
         return null;

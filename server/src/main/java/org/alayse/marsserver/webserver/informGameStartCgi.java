@@ -45,7 +45,7 @@ public class informGameStartCgi {
             return Response.ok(stream).build();
 
         } catch (Exception e) {
-            logger.info(LogUtils.format("%s", e));
+            logger.info(LogUtils.format("request invalid %s", e));
         }
 
         return null;

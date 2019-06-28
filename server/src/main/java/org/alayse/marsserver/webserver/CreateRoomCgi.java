@@ -27,12 +27,12 @@ public class CreateRoomCgi {
         try {
             final Main.CreateRoomRequest request = Main.CreateRoomRequest.parseFrom(is);
 
-            logger.info(LogUtils.format("request from user=%s, join room=%s", request.getUser(), request.getRoomname()));
+            logger.info(LogUtils.format("request from user=%s, token=%s, create room=%s", request.getUser(), request.getAccessToken(), request.getRoomname()));
 
             int retCode = Main.MsgResponse.Error.ERR_OK_VALUE;
             String errMsg = "congratulations, " + request.getUser();
 
-            if (!GameRoom.getInstance().createRoom(request.getUser(),request.getRoomname(), request.getPlayerlimit())){
+            if (!GameRoom.getInstance().createRoom(request.getAccessToken(),request.getRoomname(), request.getPlayerlimit())){
                 retCode = Main.MsgResponse.Error.ERR_FAIL_VALUE;
                 errMsg = "congratulations, " + request.getUser();
             }
@@ -52,7 +52,7 @@ public class CreateRoomCgi {
             return Response.ok(stream).build();
 
         } catch (Exception e) {
-            logger.info(LogUtils.format("%s", e));
+            logger.info(LogUtils.format("request invalid %s", e));
         }
 
         return null;

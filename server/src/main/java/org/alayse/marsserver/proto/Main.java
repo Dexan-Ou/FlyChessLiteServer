@@ -642,15 +642,15 @@ public final class Main {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>optional string access_token = 1;</code>
+     * <code>required string access_token = 1;</code>
      */
     boolean hasAccessToken();
     /**
-     * <code>optional string access_token = 1;</code>
+     * <code>required string access_token = 1;</code>
      */
     java.lang.String getAccessToken();
     /**
-     * <code>optional string access_token = 1;</code>
+     * <code>required string access_token = 1;</code>
      */
     com.google.protobuf.ByteString
         getAccessTokenBytes();
@@ -756,13 +756,13 @@ public final class Main {
     public static final int ACCESS_TOKEN_FIELD_NUMBER = 1;
     private java.lang.Object accessToken_;
     /**
-     * <code>optional string access_token = 1;</code>
+     * <code>required string access_token = 1;</code>
      */
     public boolean hasAccessToken() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>optional string access_token = 1;</code>
+     * <code>required string access_token = 1;</code>
      */
     public java.lang.String getAccessToken() {
       java.lang.Object ref = accessToken_;
@@ -779,7 +779,7 @@ public final class Main {
       }
     }
     /**
-     * <code>optional string access_token = 1;</code>
+     * <code>required string access_token = 1;</code>
      */
     public com.google.protobuf.ByteString
         getAccessTokenBytes() {
@@ -804,6 +804,10 @@ public final class Main {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
+      if (!hasAccessToken()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -1004,6 +1008,10 @@ public final class Main {
       }
 
       public final boolean isInitialized() {
+        if (!hasAccessToken()) {
+          
+          return false;
+        }
         return true;
       }
 
@@ -1028,13 +1036,13 @@ public final class Main {
 
       private java.lang.Object accessToken_ = "";
       /**
-       * <code>optional string access_token = 1;</code>
+       * <code>required string access_token = 1;</code>
        */
       public boolean hasAccessToken() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>optional string access_token = 1;</code>
+       * <code>required string access_token = 1;</code>
        */
       public java.lang.String getAccessToken() {
         java.lang.Object ref = accessToken_;
@@ -1051,7 +1059,7 @@ public final class Main {
         }
       }
       /**
-       * <code>optional string access_token = 1;</code>
+       * <code>required string access_token = 1;</code>
        */
       public com.google.protobuf.ByteString
           getAccessTokenBytes() {
@@ -1067,7 +1075,7 @@ public final class Main {
         }
       }
       /**
-       * <code>optional string access_token = 1;</code>
+       * <code>required string access_token = 1;</code>
        */
       public Builder setAccessToken(
           java.lang.String value) {
@@ -1080,7 +1088,7 @@ public final class Main {
         return this;
       }
       /**
-       * <code>optional string access_token = 1;</code>
+       * <code>required string access_token = 1;</code>
        */
       public Builder clearAccessToken() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -1089,7 +1097,7 @@ public final class Main {
         return this;
       }
       /**
-       * <code>optional string access_token = 1;</code>
+       * <code>required string access_token = 1;</code>
        */
       public Builder setAccessTokenBytes(
           com.google.protobuf.ByteString value) {
@@ -5640,7 +5648,7 @@ public final class Main {
     java.lang.String[] descriptorData = {
       "\n\nmain.proto\022\033org.alayse.marsserver.prot" +
       "o\"$\n\014HelloRequest\022\024\n\014access_token\030\001 \002(\t\"" +
-      "%\n\rHelloResponse\022\024\n\014access_token\030\001 \001(\t\"9" +
+      "%\n\rHelloResponse\022\024\n\014access_token\030\001 \002(\t\"9" +
       "\n\004Room\022\014\n\004name\030\001 \002(\t\022\016\n\006player\030\002 \002(\005\022\023\n\013" +
       "playerlimit\030\003 \002(\005\"w\n\017RoomListRequest\022\024\n\014" +
       "access_token\030\001 \002(\t\022\014\n\004type\030\002 \002(\005\"@\n\nFilt" +

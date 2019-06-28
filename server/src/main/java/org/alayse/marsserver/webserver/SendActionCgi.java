@@ -28,7 +28,7 @@ public class SendActionCgi {
         try {
             final Game.SendActionRequest request = Game.SendActionRequest.parseFrom(is);
 
-            logger.info(LogUtils.format("request from user=%s, content=%s to room=%s", request.getFrom(), request.getContent(), request.getRoom()));
+            logger.info(LogUtils.format("request from user=%s token=%s, content=%s to room=%s", request.getFrom(), request.getAccessToken(), request.getContent(), request.getRoom()));
 
             int retCode = Game.SendActionResponse.Error.ERR_OK_VALUE;
             String errMsg = "congratulations, " + request.getFrom();
@@ -62,7 +62,7 @@ public class SendActionCgi {
             return Response.ok(stream).build();
 
         } catch (Exception e) {
-            logger.info(LogUtils.format("%s", e));
+            logger.info(LogUtils.format("request invalid %s", e));
         }
 
         return null;
