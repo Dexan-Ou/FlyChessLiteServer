@@ -41,25 +41,18 @@ public class SendActionCgi {
                 actionSequence = actionSequence + actionArray[i] + ";";
             }
 
-
-            final Game.MessagePushProxy boardcastResponse = Game.MessagePushProxy.newBuilder()
-                    .setContent(actionSequence)
-                    .setRoom(request.getRoom())
-                    .setNextplayer(nextPlayer)
-                    .build();
-
-            Game.SendActionProxyResponse.Builder responseBuilder = Game.SendActionProxyResponse.newBuilder()
+            final Game.SendActionProxyResponse response = Game.SendActionProxyResponse.newBuilder()
                     .setResponse(Game.SendActionResponse.newBuilder()
-                        .setErrCode(retCode)
-                        .setErrMsg(errMsg)
-                        .build())
-                    .setMsg(boardcastResponse);
-            int i = 0;
-            for (String user:GameRoom.getInstance().roomList.get(request.getRoom()).getRoomStatus().colorMap.keySet()) {
-                responseBuilder.setReceiver(i, user);
-                i++;
-            }
-            final Game.SendActionProxyResponse response = responseBuilder.build();
+                            .setErrCode(retCode)
+                            .setErrMsg(errMsg)
+                            .build())
+                    .setMsg(Game.MessagePushProxy.newBuilder()
+                            .setContent(actionSequence)
+                            .setRoom(request.getRoom())
+                            .setNextplayer(nextPlayer)
+                            .build())
+                    .addAllReceiver(GameRoom.getInstance().roomList.get(request.getRoom()).getRoomStatus().colorMap.keySet())
+                    .build();
 
             final StreamingOutput stream = new StreamingOutput() {
                 public void write(OutputStream os) throws IOException {

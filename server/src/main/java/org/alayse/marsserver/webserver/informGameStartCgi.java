@@ -31,15 +31,11 @@ public class informGameStartCgi {
 
             GameRoom.getInstance().roomList.get(request.getRoom()).startGame();
 
-            Room.RoomResponseProxy.Builder responseBuilder = Room.RoomResponseProxy.newBuilder()
+            final Room.RoomResponseProxy response = Room.RoomResponseProxy.newBuilder()
                     .setContent("")
-                    .setNextplayer("");
-            int i = 0;
-            for (String user: GameRoom.getInstance().roomList.get(request.getRoom()).getRoomStatus().colorMap.keySet()) {
-                responseBuilder.setReceiver(i, user);
-                i++;
-            }
-            final Room.RoomResponseProxy response = responseBuilder.build();
+                    .setNextplayer("")
+                    .addAllReceiver(GameRoom.getInstance().roomList.get(request.getRoom()).getRoomStatus().colorMap.keySet())
+                    .build();
 
             final StreamingOutput stream = new StreamingOutput() {
                 public void write(OutputStream os) throws IOException {
