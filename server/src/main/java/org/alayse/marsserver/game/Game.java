@@ -1,5 +1,7 @@
 package org.alayse.marsserver.game;
 
+import java.util.Enumeration;
+import java.util.StringTokenizer;
 import java.util.Vector;
 
 public class Game {
@@ -9,11 +11,14 @@ public class Game {
     private int roll;
     private Vector action=new Vector();
 
-    public Game(int n){
-        p_number=n;
+    public Game(int n,int ai){
+        p_number=n+ai;
         players=new Player[p_number];
-        for(int i=0;i<p_number;i++){
-            players[i]=new Player(i);
+        for(int i=0;i<n;i++){
+            players[i]=new Player(i,0);
+        }
+        for(int i=0;i<ai;i++){
+            players[n+i]=new Player(n+i,1);
         }
         order=0;
         roll=0;
@@ -232,7 +237,6 @@ public class Game {
         }
     }
     private void oneRound(int ai,int c_id,int step){
-        action.clear();
         if(roll==2&&step==6){
             for(int i=0;i<4;i++){
                 Chess chess=players[order].getChess(i);
@@ -276,7 +280,10 @@ public class Game {
     private String getActionString(){
         String str="";
         for(int i = 0;i < action.size() - 1;i ++){
-            str+=(String)action.get(i)+";";
+            String s=(String)action.get(i);
+            if(s.split(",").length!=2) {
+                str += s + ";";
+            }
         }
         str+=(String)action.get(action.size()-1);
         return str;
@@ -290,21 +297,53 @@ public class Game {
         }
         return -1;
     }
+    private void aiRun(){
+        String act=(String) action.get(action.size()-1);
+        int next_player=Integer.valueOf(act.split(",")[0].substring(1));
+        while(next_player!=-1&&players[next_player].getAi()==1){
+            int r=rollStep();
+            oneRound(1,-1,r);
+            act=(String) action.get(action.size()-1);
+            next_player=Integer.valueOf(act.split(",")[0].substring(1));
+        }
+    }
     public String run(String str){
         String[] s_p=str.split(",");
         int ai=Integer.valueOf(s_p[0]);
         int step=Integer.valueOf(s_p[1]);
         int place=Integer.valueOf(s_p[2]);
         int c_id=findC_id(place);
+        action.clear();
         oneRound(ai,c_id,step);
+        aiRun();
         return getActionString();
+    }
+    public String getPlace(){
+        String s_p="";
+        for(int i=0;i<p_number;i++){
+            for(int j=0;j<4;j++){
+                Chess chess=players[i].getChess(j);
+                s_p+="("+String.valueOf(i)+",-1,"+String.valueOf(chess.getPlace())+");";
+            }
+        }
+        int w=isWin();
+        if(w==-1) {
+            s_p += "(" + String.valueOf(order) + ",-1)";
+        }
+        else{
+            s_p += "(-1," + String.valueOf(w)+")";
+        }
+        return  s_p;
+    }
+    private int rollStep(){
+        return (int) (1 + Math.random() * 6);
     }
     public void test() {
         int w=-1;
         while (w == -1) {
             System.out.println("player: "+String.valueOf(order));
             for (int i = 0; i < 3; i++) {
-                int r = (int) (1 + Math.random() * 6);
+                int r = rollStep();
                 System.out.println("roll: "+String.valueOf(r));
                 String str=run("1,"+String.valueOf(r)+",-1");
                 System.out.println(str);
