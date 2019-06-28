@@ -10,6 +10,7 @@ public class GameRoom {
     public static Logger logger = Logger.getLogger(GameRoom.class.getName());
 
     public ConcurrentHashMap<String, GameHandler> roomList;
+    public ConcurrentHashMap<String, String> playerList;
 
     private static GameRoom gameRooms = new GameRoom();
     public static GameRoom getInstance() {
@@ -18,13 +19,14 @@ public class GameRoom {
 
     private GameRoom(){
         roomList = new ConcurrentHashMap<>();
+        playerList = new ConcurrentHashMap<>();
     }
 
     public boolean createRoom(String userName, String roomName, int playerLimit){
         if (roomList.containsKey(roomName))
             return false;
         roomList.put(roomName, new GameHandler(roomName,playerLimit));
-        roomList.get(roomName).joinRoom(userName);
+        this.joinRoom(userName, roomName);
         return true;
     }
 
@@ -40,12 +42,20 @@ public class GameRoom {
             rs.status = -1;
             return rs;
         }
+        playerList.put(userName, roomName);
         return gameHandler.joinRoom(userName);
     }
 
     public void leftRoom(String userName){
-        for (String roomName : roomList.keySet()) {
-            roomList.get(roomName).leftRoom(userName);
+        if (playerList.containsKey(userName)) {
+            roomList.get(playerList.get(userName)).leftRoom(userName);
+            playerList.remove(userName);
         }
+    }
+
+    public String getPlayerRoom(String userName){
+        if (playerList.containsKey(userName))
+            return playerList.get(userName);
+        return "";
     }
 }

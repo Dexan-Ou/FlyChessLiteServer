@@ -27,13 +27,13 @@ public class JoinRoomCgi {
         try {
             final Main.JoinRoomRequest request = Main.JoinRoomRequest.parseFrom(is);
 
-            logger.info(LogUtils.format("request from user=%s, join room=%s", request.getUser(), request.getRoomname()));
+            logger.info(LogUtils.format("request from user=%s, token=%s, join room=%s", request.getUser(), request.getAccessToken(), request.getRoomname()));
 
-            roomStatus rs = GameRoom.getInstance().joinRoom(request.getUser(),request.getRoomname());
+            roomStatus rs = GameRoom.getInstance().joinRoom(request.getAccessToken(),request.getRoomname());
             int retCode = rs.status;
             String errMsg = "something wrong, " + request.getUser();
             if (retCode >= 0){
-                errMsg = rs.colorMap.get(request.getUser()) + "";
+                errMsg = rs.colorMap.get(request.getAccessToken()) + "";
             }
 
             final Main.MsgResponse response = Main.MsgResponse.newBuilder()
@@ -49,7 +49,7 @@ public class JoinRoomCgi {
             return Response.ok(stream).build();
 
         } catch (Exception e) {
-            logger.info(LogUtils.format("%s", e));
+            logger.info(LogUtils.format("request invalid %s", e));
         }
 
         return null;

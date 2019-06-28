@@ -158,41 +158,18 @@ public final class Main {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required string user = 1;</code>
+     * <code>required string access_token = 1;</code>
      */
-    boolean hasUser();
+    boolean hasAccessToken();
     /**
-     * <code>required string user = 1;</code>
+     * <code>required string access_token = 1;</code>
      */
-    java.lang.String getUser();
+    java.lang.String getAccessToken();
     /**
-     * <code>required string user = 1;</code>
+     * <code>required string access_token = 1;</code>
      */
     com.google.protobuf.ByteString
-        getUserBytes();
-
-    /**
-     * <code>required string text = 2;</code>
-     */
-    boolean hasText();
-    /**
-     * <code>required string text = 2;</code>
-     */
-    java.lang.String getText();
-    /**
-     * <code>required string text = 2;</code>
-     */
-    com.google.protobuf.ByteString
-        getTextBytes();
-
-    /**
-     * <code>optional bytes dump_content = 3;</code>
-     */
-    boolean hasDumpContent();
-    /**
-     * <code>optional bytes dump_content = 3;</code>
-     */
-    com.google.protobuf.ByteString getDumpContent();
+        getAccessTokenBytes();
   }
   /**
    * Protobuf type {@code org.alayse.marsserver.proto.HelloRequest}
@@ -249,18 +226,7 @@ public final class Main {
             case 10: {
               com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000001;
-              user_ = bs;
-              break;
-            }
-            case 18: {
-              com.google.protobuf.ByteString bs = input.readBytes();
-              bitField0_ |= 0x00000002;
-              text_ = bs;
-              break;
-            }
-            case 26: {
-              bitField0_ |= 0x00000004;
-              dumpContent_ = input.readBytes();
+              accessToken_ = bs;
               break;
             }
           }
@@ -303,19 +269,19 @@ public final class Main {
     }
 
     private int bitField0_;
-    public static final int USER_FIELD_NUMBER = 1;
-    private java.lang.Object user_;
+    public static final int ACCESS_TOKEN_FIELD_NUMBER = 1;
+    private java.lang.Object accessToken_;
     /**
-     * <code>required string user = 1;</code>
+     * <code>required string access_token = 1;</code>
      */
-    public boolean hasUser() {
+    public boolean hasAccessToken() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required string user = 1;</code>
+     * <code>required string access_token = 1;</code>
      */
-    public java.lang.String getUser() {
-      java.lang.Object ref = user_;
+    public java.lang.String getAccessToken() {
+      java.lang.Object ref = accessToken_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
@@ -323,89 +289,30 @@ public final class Main {
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
         if (bs.isValidUtf8()) {
-          user_ = s;
+          accessToken_ = s;
         }
         return s;
       }
     }
     /**
-     * <code>required string user = 1;</code>
+     * <code>required string access_token = 1;</code>
      */
     public com.google.protobuf.ByteString
-        getUserBytes() {
-      java.lang.Object ref = user_;
+        getAccessTokenBytes() {
+      java.lang.Object ref = accessToken_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        user_ = b;
+        accessToken_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
-    }
-
-    public static final int TEXT_FIELD_NUMBER = 2;
-    private java.lang.Object text_;
-    /**
-     * <code>required string text = 2;</code>
-     */
-    public boolean hasText() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
-    }
-    /**
-     * <code>required string text = 2;</code>
-     */
-    public java.lang.String getText() {
-      java.lang.Object ref = text_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          text_ = s;
-        }
-        return s;
-      }
-    }
-    /**
-     * <code>required string text = 2;</code>
-     */
-    public com.google.protobuf.ByteString
-        getTextBytes() {
-      java.lang.Object ref = text_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        text_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int DUMP_CONTENT_FIELD_NUMBER = 3;
-    private com.google.protobuf.ByteString dumpContent_;
-    /**
-     * <code>optional bytes dump_content = 3;</code>
-     */
-    public boolean hasDumpContent() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
-    }
-    /**
-     * <code>optional bytes dump_content = 3;</code>
-     */
-    public com.google.protobuf.ByteString getDumpContent() {
-      return dumpContent_;
     }
 
     private void initFields() {
-      user_ = "";
-      text_ = "";
-      dumpContent_ = com.google.protobuf.ByteString.EMPTY;
+      accessToken_ = "";
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -413,11 +320,7 @@ public final class Main {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (!hasUser()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasText()) {
+      if (!hasAccessToken()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -429,13 +332,7 @@ public final class Main {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getUserBytes());
-      }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeBytes(2, getTextBytes());
-      }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeBytes(3, dumpContent_);
+        output.writeBytes(1, getAccessTokenBytes());
       }
       getUnknownFields().writeTo(output);
     }
@@ -448,15 +345,7 @@ public final class Main {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getUserBytes());
-      }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(2, getTextBytes());
-      }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(3, dumpContent_);
+          .computeBytesSize(1, getAccessTokenBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -575,12 +464,8 @@ public final class Main {
 
       public Builder clear() {
         super.clear();
-        user_ = "";
+        accessToken_ = "";
         bitField0_ = (bitField0_ & ~0x00000001);
-        text_ = "";
-        bitField0_ = (bitField0_ & ~0x00000002);
-        dumpContent_ = com.google.protobuf.ByteString.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
 
@@ -612,15 +497,7 @@ public final class Main {
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
           to_bitField0_ |= 0x00000001;
         }
-        result.user_ = user_;
-        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
-          to_bitField0_ |= 0x00000002;
-        }
-        result.text_ = text_;
-        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
-          to_bitField0_ |= 0x00000004;
-        }
-        result.dumpContent_ = dumpContent_;
+        result.accessToken_ = accessToken_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -637,29 +514,17 @@ public final class Main {
 
       public Builder mergeFrom(org.alayse.marsserver.proto.Main.HelloRequest other) {
         if (other == org.alayse.marsserver.proto.Main.HelloRequest.getDefaultInstance()) return this;
-        if (other.hasUser()) {
+        if (other.hasAccessToken()) {
           bitField0_ |= 0x00000001;
-          user_ = other.user_;
+          accessToken_ = other.accessToken_;
           onChanged();
-        }
-        if (other.hasText()) {
-          bitField0_ |= 0x00000002;
-          text_ = other.text_;
-          onChanged();
-        }
-        if (other.hasDumpContent()) {
-          setDumpContent(other.getDumpContent());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
 
       public final boolean isInitialized() {
-        if (!hasUser()) {
-          
-          return false;
-        }
-        if (!hasText()) {
+        if (!hasAccessToken()) {
           
           return false;
         }
@@ -685,24 +550,24 @@ public final class Main {
       }
       private int bitField0_;
 
-      private java.lang.Object user_ = "";
+      private java.lang.Object accessToken_ = "";
       /**
-       * <code>required string user = 1;</code>
+       * <code>required string access_token = 1;</code>
        */
-      public boolean hasUser() {
+      public boolean hasAccessToken() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required string user = 1;</code>
+       * <code>required string access_token = 1;</code>
        */
-      public java.lang.String getUser() {
-        java.lang.Object ref = user_;
+      public java.lang.String getAccessToken() {
+        java.lang.Object ref = accessToken_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
           if (bs.isValidUtf8()) {
-            user_ = s;
+            accessToken_ = s;
           }
           return s;
         } else {
@@ -710,164 +575,53 @@ public final class Main {
         }
       }
       /**
-       * <code>required string user = 1;</code>
+       * <code>required string access_token = 1;</code>
        */
       public com.google.protobuf.ByteString
-          getUserBytes() {
-        java.lang.Object ref = user_;
+          getAccessTokenBytes() {
+        java.lang.Object ref = accessToken_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          user_ = b;
+          accessToken_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>required string user = 1;</code>
+       * <code>required string access_token = 1;</code>
        */
-      public Builder setUser(
+      public Builder setAccessToken(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   bitField0_ |= 0x00000001;
-        user_ = value;
+        accessToken_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string user = 1;</code>
+       * <code>required string access_token = 1;</code>
        */
-      public Builder clearUser() {
+      public Builder clearAccessToken() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        user_ = getDefaultInstance().getUser();
+        accessToken_ = getDefaultInstance().getAccessToken();
         onChanged();
         return this;
       }
       /**
-       * <code>required string user = 1;</code>
+       * <code>required string access_token = 1;</code>
        */
-      public Builder setUserBytes(
+      public Builder setAccessTokenBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   bitField0_ |= 0x00000001;
-        user_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object text_ = "";
-      /**
-       * <code>required string text = 2;</code>
-       */
-      public boolean hasText() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
-      }
-      /**
-       * <code>required string text = 2;</code>
-       */
-      public java.lang.String getText() {
-        java.lang.Object ref = text_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            text_ = s;
-          }
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>required string text = 2;</code>
-       */
-      public com.google.protobuf.ByteString
-          getTextBytes() {
-        java.lang.Object ref = text_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          text_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>required string text = 2;</code>
-       */
-      public Builder setText(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000002;
-        text_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required string text = 2;</code>
-       */
-      public Builder clearText() {
-        bitField0_ = (bitField0_ & ~0x00000002);
-        text_ = getDefaultInstance().getText();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required string text = 2;</code>
-       */
-      public Builder setTextBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000002;
-        text_ = value;
-        onChanged();
-        return this;
-      }
-
-      private com.google.protobuf.ByteString dumpContent_ = com.google.protobuf.ByteString.EMPTY;
-      /**
-       * <code>optional bytes dump_content = 3;</code>
-       */
-      public boolean hasDumpContent() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
-      }
-      /**
-       * <code>optional bytes dump_content = 3;</code>
-       */
-      public com.google.protobuf.ByteString getDumpContent() {
-        return dumpContent_;
-      }
-      /**
-       * <code>optional bytes dump_content = 3;</code>
-       */
-      public Builder setDumpContent(com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000004;
-        dumpContent_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional bytes dump_content = 3;</code>
-       */
-      public Builder clearDumpContent() {
-        bitField0_ = (bitField0_ & ~0x00000004);
-        dumpContent_ = getDefaultInstance().getDumpContent();
+        accessToken_ = value;
         onChanged();
         return this;
       }
@@ -888,36 +642,18 @@ public final class Main {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required int32 retcode = 1;</code>
+     * <code>required string access_token = 1;</code>
      */
-    boolean hasRetcode();
+    boolean hasAccessToken();
     /**
-     * <code>required int32 retcode = 1;</code>
+     * <code>required string access_token = 1;</code>
      */
-    int getRetcode();
-
+    java.lang.String getAccessToken();
     /**
-     * <code>optional string errmsg = 2;</code>
-     */
-    boolean hasErrmsg();
-    /**
-     * <code>optional string errmsg = 2;</code>
-     */
-    java.lang.String getErrmsg();
-    /**
-     * <code>optional string errmsg = 2;</code>
+     * <code>required string access_token = 1;</code>
      */
     com.google.protobuf.ByteString
-        getErrmsgBytes();
-
-    /**
-     * <code>optional bytes dump_content = 3;</code>
-     */
-    boolean hasDumpContent();
-    /**
-     * <code>optional bytes dump_content = 3;</code>
-     */
-    com.google.protobuf.ByteString getDumpContent();
+        getAccessTokenBytes();
   }
   /**
    * Protobuf type {@code org.alayse.marsserver.proto.HelloResponse}
@@ -971,20 +707,10 @@ public final class Main {
               }
               break;
             }
-            case 8: {
-              bitField0_ |= 0x00000001;
-              retcode_ = input.readInt32();
-              break;
-            }
-            case 18: {
+            case 10: {
               com.google.protobuf.ByteString bs = input.readBytes();
-              bitField0_ |= 0x00000002;
-              errmsg_ = bs;
-              break;
-            }
-            case 26: {
-              bitField0_ |= 0x00000004;
-              dumpContent_ = input.readBytes();
+              bitField0_ |= 0x00000001;
+              accessToken_ = bs;
               break;
             }
           }
@@ -1027,34 +753,19 @@ public final class Main {
     }
 
     private int bitField0_;
-    public static final int RETCODE_FIELD_NUMBER = 1;
-    private int retcode_;
+    public static final int ACCESS_TOKEN_FIELD_NUMBER = 1;
+    private java.lang.Object accessToken_;
     /**
-     * <code>required int32 retcode = 1;</code>
+     * <code>required string access_token = 1;</code>
      */
-    public boolean hasRetcode() {
+    public boolean hasAccessToken() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required int32 retcode = 1;</code>
+     * <code>required string access_token = 1;</code>
      */
-    public int getRetcode() {
-      return retcode_;
-    }
-
-    public static final int ERRMSG_FIELD_NUMBER = 2;
-    private java.lang.Object errmsg_;
-    /**
-     * <code>optional string errmsg = 2;</code>
-     */
-    public boolean hasErrmsg() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
-    }
-    /**
-     * <code>optional string errmsg = 2;</code>
-     */
-    public java.lang.String getErrmsg() {
-      java.lang.Object ref = errmsg_;
+    public java.lang.String getAccessToken() {
+      java.lang.Object ref = accessToken_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
@@ -1062,47 +773,30 @@ public final class Main {
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
         if (bs.isValidUtf8()) {
-          errmsg_ = s;
+          accessToken_ = s;
         }
         return s;
       }
     }
     /**
-     * <code>optional string errmsg = 2;</code>
+     * <code>required string access_token = 1;</code>
      */
     public com.google.protobuf.ByteString
-        getErrmsgBytes() {
-      java.lang.Object ref = errmsg_;
+        getAccessTokenBytes() {
+      java.lang.Object ref = accessToken_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        errmsg_ = b;
+        accessToken_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
 
-    public static final int DUMP_CONTENT_FIELD_NUMBER = 3;
-    private com.google.protobuf.ByteString dumpContent_;
-    /**
-     * <code>optional bytes dump_content = 3;</code>
-     */
-    public boolean hasDumpContent() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
-    }
-    /**
-     * <code>optional bytes dump_content = 3;</code>
-     */
-    public com.google.protobuf.ByteString getDumpContent() {
-      return dumpContent_;
-    }
-
     private void initFields() {
-      retcode_ = 0;
-      errmsg_ = "";
-      dumpContent_ = com.google.protobuf.ByteString.EMPTY;
+      accessToken_ = "";
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -1110,7 +804,7 @@ public final class Main {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (!hasRetcode()) {
+      if (!hasAccessToken()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -1122,13 +816,7 @@ public final class Main {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeInt32(1, retcode_);
-      }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeBytes(2, getErrmsgBytes());
-      }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeBytes(3, dumpContent_);
+        output.writeBytes(1, getAccessTokenBytes());
       }
       getUnknownFields().writeTo(output);
     }
@@ -1141,15 +829,7 @@ public final class Main {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(1, retcode_);
-      }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(2, getErrmsgBytes());
-      }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(3, dumpContent_);
+          .computeBytesSize(1, getAccessTokenBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -1268,12 +948,8 @@ public final class Main {
 
       public Builder clear() {
         super.clear();
-        retcode_ = 0;
+        accessToken_ = "";
         bitField0_ = (bitField0_ & ~0x00000001);
-        errmsg_ = "";
-        bitField0_ = (bitField0_ & ~0x00000002);
-        dumpContent_ = com.google.protobuf.ByteString.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
 
@@ -1305,15 +981,7 @@ public final class Main {
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
           to_bitField0_ |= 0x00000001;
         }
-        result.retcode_ = retcode_;
-        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
-          to_bitField0_ |= 0x00000002;
-        }
-        result.errmsg_ = errmsg_;
-        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
-          to_bitField0_ |= 0x00000004;
-        }
-        result.dumpContent_ = dumpContent_;
+        result.accessToken_ = accessToken_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -1330,23 +998,17 @@ public final class Main {
 
       public Builder mergeFrom(org.alayse.marsserver.proto.Main.HelloResponse other) {
         if (other == org.alayse.marsserver.proto.Main.HelloResponse.getDefaultInstance()) return this;
-        if (other.hasRetcode()) {
-          setRetcode(other.getRetcode());
-        }
-        if (other.hasErrmsg()) {
-          bitField0_ |= 0x00000002;
-          errmsg_ = other.errmsg_;
+        if (other.hasAccessToken()) {
+          bitField0_ |= 0x00000001;
+          accessToken_ = other.accessToken_;
           onChanged();
-        }
-        if (other.hasDumpContent()) {
-          setDumpContent(other.getDumpContent());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
 
       public final boolean isInitialized() {
-        if (!hasRetcode()) {
+        if (!hasAccessToken()) {
           
           return false;
         }
@@ -1372,56 +1034,24 @@ public final class Main {
       }
       private int bitField0_;
 
-      private int retcode_ ;
+      private java.lang.Object accessToken_ = "";
       /**
-       * <code>required int32 retcode = 1;</code>
+       * <code>required string access_token = 1;</code>
        */
-      public boolean hasRetcode() {
+      public boolean hasAccessToken() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required int32 retcode = 1;</code>
+       * <code>required string access_token = 1;</code>
        */
-      public int getRetcode() {
-        return retcode_;
-      }
-      /**
-       * <code>required int32 retcode = 1;</code>
-       */
-      public Builder setRetcode(int value) {
-        bitField0_ |= 0x00000001;
-        retcode_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required int32 retcode = 1;</code>
-       */
-      public Builder clearRetcode() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        retcode_ = 0;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object errmsg_ = "";
-      /**
-       * <code>optional string errmsg = 2;</code>
-       */
-      public boolean hasErrmsg() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
-      }
-      /**
-       * <code>optional string errmsg = 2;</code>
-       */
-      public java.lang.String getErrmsg() {
-        java.lang.Object ref = errmsg_;
+      public java.lang.String getAccessToken() {
+        java.lang.Object ref = accessToken_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
           if (bs.isValidUtf8()) {
-            errmsg_ = s;
+            accessToken_ = s;
           }
           return s;
         } else {
@@ -1429,88 +1059,53 @@ public final class Main {
         }
       }
       /**
-       * <code>optional string errmsg = 2;</code>
+       * <code>required string access_token = 1;</code>
        */
       public com.google.protobuf.ByteString
-          getErrmsgBytes() {
-        java.lang.Object ref = errmsg_;
+          getAccessTokenBytes() {
+        java.lang.Object ref = accessToken_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          errmsg_ = b;
+          accessToken_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>optional string errmsg = 2;</code>
+       * <code>required string access_token = 1;</code>
        */
-      public Builder setErrmsg(
+      public Builder setAccessToken(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000002;
-        errmsg_ = value;
+  bitField0_ |= 0x00000001;
+        accessToken_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string errmsg = 2;</code>
+       * <code>required string access_token = 1;</code>
        */
-      public Builder clearErrmsg() {
-        bitField0_ = (bitField0_ & ~0x00000002);
-        errmsg_ = getDefaultInstance().getErrmsg();
+      public Builder clearAccessToken() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        accessToken_ = getDefaultInstance().getAccessToken();
         onChanged();
         return this;
       }
       /**
-       * <code>optional string errmsg = 2;</code>
+       * <code>required string access_token = 1;</code>
        */
-      public Builder setErrmsgBytes(
+      public Builder setAccessTokenBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000002;
-        errmsg_ = value;
-        onChanged();
-        return this;
-      }
-
-      private com.google.protobuf.ByteString dumpContent_ = com.google.protobuf.ByteString.EMPTY;
-      /**
-       * <code>optional bytes dump_content = 3;</code>
-       */
-      public boolean hasDumpContent() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
-      }
-      /**
-       * <code>optional bytes dump_content = 3;</code>
-       */
-      public com.google.protobuf.ByteString getDumpContent() {
-        return dumpContent_;
-      }
-      /**
-       * <code>optional bytes dump_content = 3;</code>
-       */
-      public Builder setDumpContent(com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000004;
-        dumpContent_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional bytes dump_content = 3;</code>
-       */
-      public Builder clearDumpContent() {
-        bitField0_ = (bitField0_ & ~0x00000004);
-        dumpContent_ = getDefaultInstance().getDumpContent();
+  bitField0_ |= 0x00000001;
+        accessToken_ = value;
         onChanged();
         return this;
       }
@@ -3554,39 +3149,62 @@ public final class Main {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required string user = 1;</code>
+     * <code>required string access_token = 1;</code>
+     */
+    boolean hasAccessToken();
+    /**
+     * <code>required string access_token = 1;</code>
+     */
+    java.lang.String getAccessToken();
+    /**
+     * <code>required string access_token = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getAccessTokenBytes();
+
+    /**
+     * <code>required string user = 2;</code>
      */
     boolean hasUser();
     /**
-     * <code>required string user = 1;</code>
+     * <code>required string user = 2;</code>
      */
     java.lang.String getUser();
     /**
-     * <code>required string user = 1;</code>
+     * <code>required string user = 2;</code>
      */
     com.google.protobuf.ByteString
         getUserBytes();
 
     /**
-     * <code>required string roomname = 2;</code>
+     * <code>required string roomname = 3;</code>
      */
     boolean hasRoomname();
     /**
-     * <code>required string roomname = 2;</code>
+     * <code>required string roomname = 3;</code>
      */
     java.lang.String getRoomname();
     /**
-     * <code>required string roomname = 2;</code>
+     * <code>required string roomname = 3;</code>
      */
     com.google.protobuf.ByteString
         getRoomnameBytes();
 
     /**
-     * <code>required int32 playerlimit = 3;</code>
+     * <code>required int32 botnum = 4;</code>
+     */
+    boolean hasBotnum();
+    /**
+     * <code>required int32 botnum = 4;</code>
+     */
+    int getBotnum();
+
+    /**
+     * <code>required int32 playerlimit = 5;</code>
      */
     boolean hasPlayerlimit();
     /**
-     * <code>required int32 playerlimit = 3;</code>
+     * <code>required int32 playerlimit = 5;</code>
      */
     int getPlayerlimit();
   }
@@ -3645,17 +3263,28 @@ public final class Main {
             case 10: {
               com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000001;
-              user_ = bs;
+              accessToken_ = bs;
               break;
             }
             case 18: {
               com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000002;
+              user_ = bs;
+              break;
+            }
+            case 26: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000004;
               roomname_ = bs;
               break;
             }
-            case 24: {
-              bitField0_ |= 0x00000004;
+            case 32: {
+              bitField0_ |= 0x00000008;
+              botnum_ = input.readInt32();
+              break;
+            }
+            case 40: {
+              bitField0_ |= 0x00000010;
               playerlimit_ = input.readInt32();
               break;
             }
@@ -3699,16 +3328,58 @@ public final class Main {
     }
 
     private int bitField0_;
-    public static final int USER_FIELD_NUMBER = 1;
-    private java.lang.Object user_;
+    public static final int ACCESS_TOKEN_FIELD_NUMBER = 1;
+    private java.lang.Object accessToken_;
     /**
-     * <code>required string user = 1;</code>
+     * <code>required string access_token = 1;</code>
      */
-    public boolean hasUser() {
+    public boolean hasAccessToken() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required string user = 1;</code>
+     * <code>required string access_token = 1;</code>
+     */
+    public java.lang.String getAccessToken() {
+      java.lang.Object ref = accessToken_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          accessToken_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string access_token = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getAccessTokenBytes() {
+      java.lang.Object ref = accessToken_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        accessToken_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int USER_FIELD_NUMBER = 2;
+    private java.lang.Object user_;
+    /**
+     * <code>required string user = 2;</code>
+     */
+    public boolean hasUser() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required string user = 2;</code>
      */
     public java.lang.String getUser() {
       java.lang.Object ref = user_;
@@ -3725,7 +3396,7 @@ public final class Main {
       }
     }
     /**
-     * <code>required string user = 1;</code>
+     * <code>required string user = 2;</code>
      */
     public com.google.protobuf.ByteString
         getUserBytes() {
@@ -3741,16 +3412,16 @@ public final class Main {
       }
     }
 
-    public static final int ROOMNAME_FIELD_NUMBER = 2;
+    public static final int ROOMNAME_FIELD_NUMBER = 3;
     private java.lang.Object roomname_;
     /**
-     * <code>required string roomname = 2;</code>
+     * <code>required string roomname = 3;</code>
      */
     public boolean hasRoomname() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>required string roomname = 2;</code>
+     * <code>required string roomname = 3;</code>
      */
     public java.lang.String getRoomname() {
       java.lang.Object ref = roomname_;
@@ -3767,7 +3438,7 @@ public final class Main {
       }
     }
     /**
-     * <code>required string roomname = 2;</code>
+     * <code>required string roomname = 3;</code>
      */
     public com.google.protobuf.ByteString
         getRoomnameBytes() {
@@ -3783,24 +3454,41 @@ public final class Main {
       }
     }
 
-    public static final int PLAYERLIMIT_FIELD_NUMBER = 3;
-    private int playerlimit_;
+    public static final int BOTNUM_FIELD_NUMBER = 4;
+    private int botnum_;
     /**
-     * <code>required int32 playerlimit = 3;</code>
+     * <code>required int32 botnum = 4;</code>
      */
-    public boolean hasPlayerlimit() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
+    public boolean hasBotnum() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     /**
-     * <code>required int32 playerlimit = 3;</code>
+     * <code>required int32 botnum = 4;</code>
+     */
+    public int getBotnum() {
+      return botnum_;
+    }
+
+    public static final int PLAYERLIMIT_FIELD_NUMBER = 5;
+    private int playerlimit_;
+    /**
+     * <code>required int32 playerlimit = 5;</code>
+     */
+    public boolean hasPlayerlimit() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    /**
+     * <code>required int32 playerlimit = 5;</code>
      */
     public int getPlayerlimit() {
       return playerlimit_;
     }
 
     private void initFields() {
+      accessToken_ = "";
       user_ = "";
       roomname_ = "";
+      botnum_ = 0;
       playerlimit_ = 0;
     }
     private byte memoizedIsInitialized = -1;
@@ -3809,11 +3497,19 @@ public final class Main {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
+      if (!hasAccessToken()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
       if (!hasUser()) {
         memoizedIsInitialized = 0;
         return false;
       }
       if (!hasRoomname()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasBotnum()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -3829,13 +3525,19 @@ public final class Main {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getUserBytes());
+        output.writeBytes(1, getAccessTokenBytes());
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeBytes(2, getRoomnameBytes());
+        output.writeBytes(2, getUserBytes());
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeInt32(3, playerlimit_);
+        output.writeBytes(3, getRoomnameBytes());
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeInt32(4, botnum_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeInt32(5, playerlimit_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -3848,15 +3550,23 @@ public final class Main {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getUserBytes());
+          .computeBytesSize(1, getAccessTokenBytes());
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(2, getRoomnameBytes());
+          .computeBytesSize(2, getUserBytes());
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(3, playerlimit_);
+          .computeBytesSize(3, getRoomnameBytes());
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, botnum_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(5, playerlimit_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -3975,12 +3685,16 @@ public final class Main {
 
       public Builder clear() {
         super.clear();
-        user_ = "";
+        accessToken_ = "";
         bitField0_ = (bitField0_ & ~0x00000001);
-        roomname_ = "";
+        user_ = "";
         bitField0_ = (bitField0_ & ~0x00000002);
-        playerlimit_ = 0;
+        roomname_ = "";
         bitField0_ = (bitField0_ & ~0x00000004);
+        botnum_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000008);
+        playerlimit_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000010);
         return this;
       }
 
@@ -4012,13 +3726,21 @@ public final class Main {
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
           to_bitField0_ |= 0x00000001;
         }
-        result.user_ = user_;
+        result.accessToken_ = accessToken_;
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
-        result.roomname_ = roomname_;
+        result.user_ = user_;
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
+        }
+        result.roomname_ = roomname_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.botnum_ = botnum_;
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000010;
         }
         result.playerlimit_ = playerlimit_;
         result.bitField0_ = to_bitField0_;
@@ -4037,15 +3759,23 @@ public final class Main {
 
       public Builder mergeFrom(org.alayse.marsserver.proto.Main.CreateRoomRequest other) {
         if (other == org.alayse.marsserver.proto.Main.CreateRoomRequest.getDefaultInstance()) return this;
-        if (other.hasUser()) {
+        if (other.hasAccessToken()) {
           bitField0_ |= 0x00000001;
+          accessToken_ = other.accessToken_;
+          onChanged();
+        }
+        if (other.hasUser()) {
+          bitField0_ |= 0x00000002;
           user_ = other.user_;
           onChanged();
         }
         if (other.hasRoomname()) {
-          bitField0_ |= 0x00000002;
+          bitField0_ |= 0x00000004;
           roomname_ = other.roomname_;
           onChanged();
+        }
+        if (other.hasBotnum()) {
+          setBotnum(other.getBotnum());
         }
         if (other.hasPlayerlimit()) {
           setPlayerlimit(other.getPlayerlimit());
@@ -4055,11 +3785,19 @@ public final class Main {
       }
 
       public final boolean isInitialized() {
+        if (!hasAccessToken()) {
+          
+          return false;
+        }
         if (!hasUser()) {
           
           return false;
         }
         if (!hasRoomname()) {
+          
+          return false;
+        }
+        if (!hasBotnum()) {
           
           return false;
         }
@@ -4089,15 +3827,91 @@ public final class Main {
       }
       private int bitField0_;
 
-      private java.lang.Object user_ = "";
+      private java.lang.Object accessToken_ = "";
       /**
-       * <code>required string user = 1;</code>
+       * <code>required string access_token = 1;</code>
        */
-      public boolean hasUser() {
+      public boolean hasAccessToken() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required string user = 1;</code>
+       * <code>required string access_token = 1;</code>
+       */
+      public java.lang.String getAccessToken() {
+        java.lang.Object ref = accessToken_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            accessToken_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string access_token = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getAccessTokenBytes() {
+        java.lang.Object ref = accessToken_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          accessToken_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string access_token = 1;</code>
+       */
+      public Builder setAccessToken(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        accessToken_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string access_token = 1;</code>
+       */
+      public Builder clearAccessToken() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        accessToken_ = getDefaultInstance().getAccessToken();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string access_token = 1;</code>
+       */
+      public Builder setAccessTokenBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        accessToken_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object user_ = "";
+      /**
+       * <code>required string user = 2;</code>
+       */
+      public boolean hasUser() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required string user = 2;</code>
        */
       public java.lang.String getUser() {
         java.lang.Object ref = user_;
@@ -4114,7 +3928,7 @@ public final class Main {
         }
       }
       /**
-       * <code>required string user = 1;</code>
+       * <code>required string user = 2;</code>
        */
       public com.google.protobuf.ByteString
           getUserBytes() {
@@ -4130,36 +3944,36 @@ public final class Main {
         }
       }
       /**
-       * <code>required string user = 1;</code>
+       * <code>required string user = 2;</code>
        */
       public Builder setUser(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000001;
+  bitField0_ |= 0x00000002;
         user_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string user = 1;</code>
+       * <code>required string user = 2;</code>
        */
       public Builder clearUser() {
-        bitField0_ = (bitField0_ & ~0x00000001);
+        bitField0_ = (bitField0_ & ~0x00000002);
         user_ = getDefaultInstance().getUser();
         onChanged();
         return this;
       }
       /**
-       * <code>required string user = 1;</code>
+       * <code>required string user = 2;</code>
        */
       public Builder setUserBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000001;
+  bitField0_ |= 0x00000002;
         user_ = value;
         onChanged();
         return this;
@@ -4167,13 +3981,13 @@ public final class Main {
 
       private java.lang.Object roomname_ = "";
       /**
-       * <code>required string roomname = 2;</code>
+       * <code>required string roomname = 3;</code>
        */
       public boolean hasRoomname() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
+        return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
-       * <code>required string roomname = 2;</code>
+       * <code>required string roomname = 3;</code>
        */
       public java.lang.String getRoomname() {
         java.lang.Object ref = roomname_;
@@ -4190,7 +4004,7 @@ public final class Main {
         }
       }
       /**
-       * <code>required string roomname = 2;</code>
+       * <code>required string roomname = 3;</code>
        */
       public com.google.protobuf.ByteString
           getRoomnameBytes() {
@@ -4206,68 +4020,100 @@ public final class Main {
         }
       }
       /**
-       * <code>required string roomname = 2;</code>
+       * <code>required string roomname = 3;</code>
        */
       public Builder setRoomname(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000002;
+  bitField0_ |= 0x00000004;
         roomname_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string roomname = 2;</code>
+       * <code>required string roomname = 3;</code>
        */
       public Builder clearRoomname() {
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000004);
         roomname_ = getDefaultInstance().getRoomname();
         onChanged();
         return this;
       }
       /**
-       * <code>required string roomname = 2;</code>
+       * <code>required string roomname = 3;</code>
        */
       public Builder setRoomnameBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000002;
+  bitField0_ |= 0x00000004;
         roomname_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int botnum_ ;
+      /**
+       * <code>required int32 botnum = 4;</code>
+       */
+      public boolean hasBotnum() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      /**
+       * <code>required int32 botnum = 4;</code>
+       */
+      public int getBotnum() {
+        return botnum_;
+      }
+      /**
+       * <code>required int32 botnum = 4;</code>
+       */
+      public Builder setBotnum(int value) {
+        bitField0_ |= 0x00000008;
+        botnum_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 botnum = 4;</code>
+       */
+      public Builder clearBotnum() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        botnum_ = 0;
         onChanged();
         return this;
       }
 
       private int playerlimit_ ;
       /**
-       * <code>required int32 playerlimit = 3;</code>
+       * <code>required int32 playerlimit = 5;</code>
        */
       public boolean hasPlayerlimit() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
+        return ((bitField0_ & 0x00000010) == 0x00000010);
       }
       /**
-       * <code>required int32 playerlimit = 3;</code>
+       * <code>required int32 playerlimit = 5;</code>
        */
       public int getPlayerlimit() {
         return playerlimit_;
       }
       /**
-       * <code>required int32 playerlimit = 3;</code>
+       * <code>required int32 playerlimit = 5;</code>
        */
       public Builder setPlayerlimit(int value) {
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000010;
         playerlimit_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required int32 playerlimit = 3;</code>
+       * <code>required int32 playerlimit = 5;</code>
        */
       public Builder clearPlayerlimit() {
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000010);
         playerlimit_ = 0;
         onChanged();
         return this;
@@ -4289,29 +4135,43 @@ public final class Main {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required string user = 1;</code>
+     * <code>required string access_token = 1;</code>
+     */
+    boolean hasAccessToken();
+    /**
+     * <code>required string access_token = 1;</code>
+     */
+    java.lang.String getAccessToken();
+    /**
+     * <code>required string access_token = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getAccessTokenBytes();
+
+    /**
+     * <code>required string user = 2;</code>
      */
     boolean hasUser();
     /**
-     * <code>required string user = 1;</code>
+     * <code>required string user = 2;</code>
      */
     java.lang.String getUser();
     /**
-     * <code>required string user = 1;</code>
+     * <code>required string user = 2;</code>
      */
     com.google.protobuf.ByteString
         getUserBytes();
 
     /**
-     * <code>required string roomname = 2;</code>
+     * <code>required string roomname = 3;</code>
      */
     boolean hasRoomname();
     /**
-     * <code>required string roomname = 2;</code>
+     * <code>required string roomname = 3;</code>
      */
     java.lang.String getRoomname();
     /**
-     * <code>required string roomname = 2;</code>
+     * <code>required string roomname = 3;</code>
      */
     com.google.protobuf.ByteString
         getRoomnameBytes();
@@ -4371,12 +4231,18 @@ public final class Main {
             case 10: {
               com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000001;
-              user_ = bs;
+              accessToken_ = bs;
               break;
             }
             case 18: {
               com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000002;
+              user_ = bs;
+              break;
+            }
+            case 26: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000004;
               roomname_ = bs;
               break;
             }
@@ -4420,16 +4286,58 @@ public final class Main {
     }
 
     private int bitField0_;
-    public static final int USER_FIELD_NUMBER = 1;
-    private java.lang.Object user_;
+    public static final int ACCESS_TOKEN_FIELD_NUMBER = 1;
+    private java.lang.Object accessToken_;
     /**
-     * <code>required string user = 1;</code>
+     * <code>required string access_token = 1;</code>
      */
-    public boolean hasUser() {
+    public boolean hasAccessToken() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required string user = 1;</code>
+     * <code>required string access_token = 1;</code>
+     */
+    public java.lang.String getAccessToken() {
+      java.lang.Object ref = accessToken_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          accessToken_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string access_token = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getAccessTokenBytes() {
+      java.lang.Object ref = accessToken_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        accessToken_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int USER_FIELD_NUMBER = 2;
+    private java.lang.Object user_;
+    /**
+     * <code>required string user = 2;</code>
+     */
+    public boolean hasUser() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required string user = 2;</code>
      */
     public java.lang.String getUser() {
       java.lang.Object ref = user_;
@@ -4446,7 +4354,7 @@ public final class Main {
       }
     }
     /**
-     * <code>required string user = 1;</code>
+     * <code>required string user = 2;</code>
      */
     public com.google.protobuf.ByteString
         getUserBytes() {
@@ -4462,16 +4370,16 @@ public final class Main {
       }
     }
 
-    public static final int ROOMNAME_FIELD_NUMBER = 2;
+    public static final int ROOMNAME_FIELD_NUMBER = 3;
     private java.lang.Object roomname_;
     /**
-     * <code>required string roomname = 2;</code>
+     * <code>required string roomname = 3;</code>
      */
     public boolean hasRoomname() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>required string roomname = 2;</code>
+     * <code>required string roomname = 3;</code>
      */
     public java.lang.String getRoomname() {
       java.lang.Object ref = roomname_;
@@ -4488,7 +4396,7 @@ public final class Main {
       }
     }
     /**
-     * <code>required string roomname = 2;</code>
+     * <code>required string roomname = 3;</code>
      */
     public com.google.protobuf.ByteString
         getRoomnameBytes() {
@@ -4505,6 +4413,7 @@ public final class Main {
     }
 
     private void initFields() {
+      accessToken_ = "";
       user_ = "";
       roomname_ = "";
     }
@@ -4514,6 +4423,10 @@ public final class Main {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
+      if (!hasAccessToken()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
       if (!hasUser()) {
         memoizedIsInitialized = 0;
         return false;
@@ -4530,10 +4443,13 @@ public final class Main {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getUserBytes());
+        output.writeBytes(1, getAccessTokenBytes());
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeBytes(2, getRoomnameBytes());
+        output.writeBytes(2, getUserBytes());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeBytes(3, getRoomnameBytes());
       }
       getUnknownFields().writeTo(output);
     }
@@ -4546,11 +4462,15 @@ public final class Main {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getUserBytes());
+          .computeBytesSize(1, getAccessTokenBytes());
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(2, getRoomnameBytes());
+          .computeBytesSize(2, getUserBytes());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(3, getRoomnameBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -4669,10 +4589,12 @@ public final class Main {
 
       public Builder clear() {
         super.clear();
-        user_ = "";
+        accessToken_ = "";
         bitField0_ = (bitField0_ & ~0x00000001);
-        roomname_ = "";
+        user_ = "";
         bitField0_ = (bitField0_ & ~0x00000002);
+        roomname_ = "";
+        bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
 
@@ -4704,9 +4626,13 @@ public final class Main {
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
           to_bitField0_ |= 0x00000001;
         }
-        result.user_ = user_;
+        result.accessToken_ = accessToken_;
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
+        }
+        result.user_ = user_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
         }
         result.roomname_ = roomname_;
         result.bitField0_ = to_bitField0_;
@@ -4725,13 +4651,18 @@ public final class Main {
 
       public Builder mergeFrom(org.alayse.marsserver.proto.Main.JoinRoomRequest other) {
         if (other == org.alayse.marsserver.proto.Main.JoinRoomRequest.getDefaultInstance()) return this;
-        if (other.hasUser()) {
+        if (other.hasAccessToken()) {
           bitField0_ |= 0x00000001;
+          accessToken_ = other.accessToken_;
+          onChanged();
+        }
+        if (other.hasUser()) {
+          bitField0_ |= 0x00000002;
           user_ = other.user_;
           onChanged();
         }
         if (other.hasRoomname()) {
-          bitField0_ |= 0x00000002;
+          bitField0_ |= 0x00000004;
           roomname_ = other.roomname_;
           onChanged();
         }
@@ -4740,6 +4671,10 @@ public final class Main {
       }
 
       public final boolean isInitialized() {
+        if (!hasAccessToken()) {
+          
+          return false;
+        }
         if (!hasUser()) {
           
           return false;
@@ -4770,15 +4705,91 @@ public final class Main {
       }
       private int bitField0_;
 
-      private java.lang.Object user_ = "";
+      private java.lang.Object accessToken_ = "";
       /**
-       * <code>required string user = 1;</code>
+       * <code>required string access_token = 1;</code>
        */
-      public boolean hasUser() {
+      public boolean hasAccessToken() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required string user = 1;</code>
+       * <code>required string access_token = 1;</code>
+       */
+      public java.lang.String getAccessToken() {
+        java.lang.Object ref = accessToken_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            accessToken_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string access_token = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getAccessTokenBytes() {
+        java.lang.Object ref = accessToken_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          accessToken_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string access_token = 1;</code>
+       */
+      public Builder setAccessToken(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        accessToken_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string access_token = 1;</code>
+       */
+      public Builder clearAccessToken() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        accessToken_ = getDefaultInstance().getAccessToken();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string access_token = 1;</code>
+       */
+      public Builder setAccessTokenBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        accessToken_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object user_ = "";
+      /**
+       * <code>required string user = 2;</code>
+       */
+      public boolean hasUser() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required string user = 2;</code>
        */
       public java.lang.String getUser() {
         java.lang.Object ref = user_;
@@ -4795,7 +4806,7 @@ public final class Main {
         }
       }
       /**
-       * <code>required string user = 1;</code>
+       * <code>required string user = 2;</code>
        */
       public com.google.protobuf.ByteString
           getUserBytes() {
@@ -4811,36 +4822,36 @@ public final class Main {
         }
       }
       /**
-       * <code>required string user = 1;</code>
+       * <code>required string user = 2;</code>
        */
       public Builder setUser(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000001;
+  bitField0_ |= 0x00000002;
         user_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string user = 1;</code>
+       * <code>required string user = 2;</code>
        */
       public Builder clearUser() {
-        bitField0_ = (bitField0_ & ~0x00000001);
+        bitField0_ = (bitField0_ & ~0x00000002);
         user_ = getDefaultInstance().getUser();
         onChanged();
         return this;
       }
       /**
-       * <code>required string user = 1;</code>
+       * <code>required string user = 2;</code>
        */
       public Builder setUserBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000001;
+  bitField0_ |= 0x00000002;
         user_ = value;
         onChanged();
         return this;
@@ -4848,13 +4859,13 @@ public final class Main {
 
       private java.lang.Object roomname_ = "";
       /**
-       * <code>required string roomname = 2;</code>
+       * <code>required string roomname = 3;</code>
        */
       public boolean hasRoomname() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
+        return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
-       * <code>required string roomname = 2;</code>
+       * <code>required string roomname = 3;</code>
        */
       public java.lang.String getRoomname() {
         java.lang.Object ref = roomname_;
@@ -4871,7 +4882,7 @@ public final class Main {
         }
       }
       /**
-       * <code>required string roomname = 2;</code>
+       * <code>required string roomname = 3;</code>
        */
       public com.google.protobuf.ByteString
           getRoomnameBytes() {
@@ -4887,36 +4898,36 @@ public final class Main {
         }
       }
       /**
-       * <code>required string roomname = 2;</code>
+       * <code>required string roomname = 3;</code>
        */
       public Builder setRoomname(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000002;
+  bitField0_ |= 0x00000004;
         roomname_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string roomname = 2;</code>
+       * <code>required string roomname = 3;</code>
        */
       public Builder clearRoomname() {
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000004);
         roomname_ = getDefaultInstance().getRoomname();
         onChanged();
         return this;
       }
       /**
-       * <code>required string roomname = 2;</code>
+       * <code>required string roomname = 3;</code>
        */
       public Builder setRoomnameBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000002;
+  bitField0_ |= 0x00000004;
         roomname_ = value;
         onChanged();
         return this;
@@ -5636,27 +5647,27 @@ public final class Main {
   static {
     java.lang.String[] descriptorData = {
       "\n\nmain.proto\022\033org.alayse.marsserver.prot" +
-      "o\"@\n\014HelloRequest\022\014\n\004user\030\001 \002(\t\022\014\n\004text\030" +
-      "\002 \002(\t\022\024\n\014dump_content\030\003 \001(\014\"F\n\rHelloResp" +
-      "onse\022\017\n\007retcode\030\001 \002(\005\022\016\n\006errmsg\030\002 \001(\t\022\024\n" +
-      "\014dump_content\030\003 \001(\014\"9\n\004Room\022\014\n\004name\030\001 \002(" +
-      "\t\022\016\n\006player\030\002 \002(\005\022\023\n\013playerlimit\030\003 \002(\005\"w" +
-      "\n\017RoomListRequest\022\024\n\014access_token\030\001 \002(\t\022" +
-      "\014\n\004type\030\002 \002(\005\"@\n\nFilterType\022\013\n\007DEFAULT\020\000" +
-      "\022\007\n\003ALL\020\001\022\t\n\005EMPTY\020\002\022\010\n\004FULL\020\003\022\007\n\003POI\020\004\"" +
-      "C\n\020RoomListResponse\022/\n\004list\030\001 \003(\0132!.org.",
-      "alayse.marsserver.proto.Room\"H\n\021CreateRo" +
-      "omRequest\022\014\n\004user\030\001 \002(\t\022\020\n\010roomname\030\002 \002(" +
-      "\t\022\023\n\013playerlimit\030\003 \002(\005\"1\n\017JoinRoomReques" +
-      "t\022\014\n\004user\030\001 \002(\t\022\020\n\010roomname\030\002 \002(\t\"i\n\013Msg" +
-      "Response\022\017\n\007retcode\030\001 \002(\005\022\016\n\006errmsg\030\002 \001(" +
-      "\t\"9\n\005Error\022\n\n\006ERR_OK\020\000\022\025\n\010ERR_FAIL\020\377\377\377\377\377" +
-      "\377\377\377\377\001\022\r\n\tERR_START\020\001*\312\001\n\005CmdID\022\033\n\016CMD_ID" +
-      "_INVALID\020\377\377\377\377\377\377\377\377\377\001\022\022\n\016CMD_ID_UNKNOWN\020\000\022" +
-      "\020\n\014CMD_ID_HELLO\020\001\022\017\n\013CMD_ID_AUTH\020\002\022\026\n\022CM" +
-      "D_ID_SEND_ACTION\020\003\022\024\n\020CMD_ID_ROOM_LIST\020\004",
-      "\022\023\n\017CMD_ID_JOINROOM\020\005\022\023\n\017CMD_ID_LEFTROOM" +
-      "\020\007\022\025\n\021CMD_ID_CREATEROOM\020\010"
+      "o\"$\n\014HelloRequest\022\024\n\014access_token\030\001 \002(\t\"" +
+      "%\n\rHelloResponse\022\024\n\014access_token\030\001 \002(\t\"9" +
+      "\n\004Room\022\014\n\004name\030\001 \002(\t\022\016\n\006player\030\002 \002(\005\022\023\n\013" +
+      "playerlimit\030\003 \002(\005\"w\n\017RoomListRequest\022\024\n\014" +
+      "access_token\030\001 \002(\t\022\014\n\004type\030\002 \002(\005\"@\n\nFilt" +
+      "erType\022\013\n\007DEFAULT\020\000\022\007\n\003ALL\020\001\022\t\n\005EMPTY\020\002\022" +
+      "\010\n\004FULL\020\003\022\007\n\003POI\020\004\"C\n\020RoomListResponse\022/" +
+      "\n\004list\030\001 \003(\0132!.org.alayse.marsserver.pro" +
+      "to.Room\"n\n\021CreateRoomRequest\022\024\n\014access_t",
+      "oken\030\001 \002(\t\022\014\n\004user\030\002 \002(\t\022\020\n\010roomname\030\003 \002" +
+      "(\t\022\016\n\006botnum\030\004 \002(\005\022\023\n\013playerlimit\030\005 \002(\005\"" +
+      "G\n\017JoinRoomRequest\022\024\n\014access_token\030\001 \002(\t" +
+      "\022\014\n\004user\030\002 \002(\t\022\020\n\010roomname\030\003 \002(\t\"i\n\013MsgR" +
+      "esponse\022\017\n\007retcode\030\001 \002(\005\022\016\n\006errmsg\030\002 \001(\t" +
+      "\"9\n\005Error\022\n\n\006ERR_OK\020\000\022\025\n\010ERR_FAIL\020\377\377\377\377\377\377" +
+      "\377\377\377\001\022\r\n\tERR_START\020\001*\312\001\n\005CmdID\022\033\n\016CMD_ID_" +
+      "INVALID\020\377\377\377\377\377\377\377\377\377\001\022\022\n\016CMD_ID_UNKNOWN\020\000\022\020" +
+      "\n\014CMD_ID_HELLO\020\001\022\017\n\013CMD_ID_AUTH\020\002\022\026\n\022CMD" +
+      "_ID_SEND_ACTION\020\003\022\024\n\020CMD_ID_ROOM_LIST\020\004\022",
+      "\023\n\017CMD_ID_JOINROOM\020\005\022\023\n\017CMD_ID_LEFTROOM\020" +
+      "\007\022\025\n\021CMD_ID_CREATEROOM\020\010"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -5675,13 +5686,13 @@ public final class Main {
     internal_static_org_alayse_marsserver_proto_HelloRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_org_alayse_marsserver_proto_HelloRequest_descriptor,
-        new java.lang.String[] { "User", "Text", "DumpContent", });
+        new java.lang.String[] { "AccessToken", });
     internal_static_org_alayse_marsserver_proto_HelloResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_org_alayse_marsserver_proto_HelloResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_org_alayse_marsserver_proto_HelloResponse_descriptor,
-        new java.lang.String[] { "Retcode", "Errmsg", "DumpContent", });
+        new java.lang.String[] { "AccessToken", });
     internal_static_org_alayse_marsserver_proto_Room_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_org_alayse_marsserver_proto_Room_fieldAccessorTable = new
@@ -5705,13 +5716,13 @@ public final class Main {
     internal_static_org_alayse_marsserver_proto_CreateRoomRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_org_alayse_marsserver_proto_CreateRoomRequest_descriptor,
-        new java.lang.String[] { "User", "Roomname", "Playerlimit", });
+        new java.lang.String[] { "AccessToken", "User", "Roomname", "Botnum", "Playerlimit", });
     internal_static_org_alayse_marsserver_proto_JoinRoomRequest_descriptor =
       getDescriptor().getMessageTypes().get(6);
     internal_static_org_alayse_marsserver_proto_JoinRoomRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_org_alayse_marsserver_proto_JoinRoomRequest_descriptor,
-        new java.lang.String[] { "User", "Roomname", });
+        new java.lang.String[] { "AccessToken", "User", "Roomname", });
     internal_static_org_alayse_marsserver_proto_MsgResponse_descriptor =
       getDescriptor().getMessageTypes().get(7);
     internal_static_org_alayse_marsserver_proto_MsgResponse_fieldAccessorTable = new

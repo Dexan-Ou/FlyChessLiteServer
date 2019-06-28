@@ -14,6 +14,7 @@ public class GameHandler {
     public GameHandler(String roomName, int playerLimit){
         this.roomName=roomName;
         this.playerLimit=playerLimit;
+        this.joinPlayer=new ConcurrentLinkedDeque<>();
     }
 
     public int getPlayerLimit() {
