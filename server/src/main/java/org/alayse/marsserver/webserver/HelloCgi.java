@@ -52,11 +52,17 @@ public class HelloCgi {
 
             logger.info(LogUtils.format("request hello, check username=%s", request.getAccessToken()));
 
-            String roomName = GameRoom.getInstance().getPlayerRoom(request.getAccessToken());
+            GameStatus roomName = GameRoom.getInstance().getPlayerRoom(request.getAccessToken());
             String content = "NULL";
+            if(roomName.content.equals("")){
+                content = "NULL";
+            }
+            else{
+                content = "in room";
+            }
 
             final Game.MessagePushProxy response = Game.MessagePushProxy.newBuilder()
-                    .setRoom(roomName)
+                    .setRoom(roomName.content)
                     .setContent(content)
                     .setNextplayer("")
                     .build();
