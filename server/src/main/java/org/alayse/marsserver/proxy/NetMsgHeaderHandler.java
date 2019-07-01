@@ -121,11 +121,11 @@ public class NetMsgHeaderHandler extends ChannelInboundHandlerAdapter {
                         msgXp.body = IOUtils.toByteArray(inputStream);
                         Main.MsgResponse msgResponse = Main.MsgResponse.parseFrom(msgXp.body);
                         IOUtils.closeQuietly(requestDataStream);
-                        if (msgResponse.getRetcode() == Main.MsgResponse.Error.ERR_START_VALUE)
-                            informGameStart(request_c.getRoomname());
                         byte[] respBuf = msgXp.encode();
                         logger.info(LogUtils.format("client resp, cmdId=CREATEROOM, seq=%d, resp.len=%d", msgXp.seq, msgXp.body == null ? 0 : msgXp.body.length));
                         ctx.writeAndFlush(ctx.alloc().buffer().writeBytes(respBuf));
+                        if (msgResponse.getRetcode() == Main.MsgResponse.Error.ERR_START_VALUE)
+                            informGameStart(request_c.getRoomname());
                     }
                     break;
                 case Main.CmdID.CMD_ID_JOINROOM_VALUE:
@@ -142,11 +142,11 @@ public class NetMsgHeaderHandler extends ChannelInboundHandlerAdapter {
                         msgXp.body = IOUtils.toByteArray(inputStream);
                         Main.MsgResponse msgResponse = Main.MsgResponse.parseFrom(msgXp.body);
                         IOUtils.closeQuietly(requestDataStream);
-                        if (msgResponse.getRetcode() == Main.MsgResponse.Error.ERR_START_VALUE)
-                            informGameStart(request_j.getRoomname());
                         byte[] respBuf = msgXp.encode();
                         logger.info(LogUtils.format("client resp, cmdId=JOINROOM, seq=%d, resp.len=%d", msgXp.seq, msgXp.body == null ? 0 : msgXp.body.length));
                         ctx.writeAndFlush(ctx.alloc().buffer().writeBytes(respBuf));
+                        if (msgResponse.getRetcode() == Main.MsgResponse.Error.ERR_START_VALUE)
+                            informGameStart(request_j.getRoomname());
                     }
                     break;
                 case Main.CmdID.CMD_ID_LEFTROOM_VALUE:
@@ -180,15 +180,15 @@ public class NetMsgHeaderHandler extends ChannelInboundHandlerAdapter {
                     inputStream = doHttpRequest(webCgi, requestDataStream);
                     if (inputStream != null) {
                         Game.SendActionProxyResponse response = Game.SendActionProxyResponse.parseFrom(IOUtils.toByteArray(inputStream));
-                        if (response != null && response.getResponse().getErrCode() == Game.SendActionResponse.Error.ERR_OK_VALUE) {
-                            pushMessage(response.getReceiverList(), response.getMsg());
-                        }
                         IOUtils.closeQuietly(requestDataStream);
                         Game.SendActionResponse trueResponse = response.getResponse();
                         msgXp.body = trueResponse.toByteArray();
                         byte[] respBuf = msgXp.encode();
                         logger.info(LogUtils.format("client resp, cmdId=SEND_ACTION, seq=%d, resp.len=%d", msgXp.seq, msgXp.body == null ? 0 : msgXp.body.length));
                         ctx.writeAndFlush(ctx.alloc().buffer().writeBytes(respBuf));
+                        if (response.getResponse().getErrCode() == Game.SendActionResponse.Error.ERR_OK_VALUE) {
+                            pushMessage(response.getReceiverList(), response.getMsg());
+                        }
                     }
                     break;
                 case NetMsgHeader.CMDID_NOOPING:
@@ -232,6 +232,7 @@ public class NetMsgHeaderHandler extends ChannelInboundHandlerAdapter {
 
     private void informGameStart(String roomName) {
         try {
+            logger.info(LogUtils.format("INFO Room=%s, game start.", roomName));
             Room.RoomRequest request = Room.RoomRequest.newBuilder()
                     .setRoom(roomName)
                     .build();
@@ -254,6 +255,7 @@ public class NetMsgHeaderHandler extends ChannelInboundHandlerAdapter {
 
     private void informGameStatus(String mask){
         try {
+            logger.info(LogUtils.format("INFO user=%s request his game status.", mask));
             Main.HelloRequest request = Main.HelloRequest.newBuilder()
                     .setAccessToken(mask)
                     .build();
@@ -352,6 +354,7 @@ public class NetMsgHeaderHandler extends ChannelInboundHandlerAdapter {
         @Override
         public void run() {
             try {
+                logger.info(LogUtils.format("MessagePush to %s", playerList.toString()));
                 NetMsgHeader msgXp = new NetMsgHeader();
                 msgXp.cmdId = BaseConstants.MESSAGE_PUSH;
 

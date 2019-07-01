@@ -59,18 +59,10 @@ public class GameRoom {
     public GameStatus getPlayerRoom(String userName){
         if (playerList.containsKey(userName))
         {
-            Iterator<ConcurrentHashMap.Entry<String, GameHandler>> entries = roomList.entrySet().iterator();
-            while(entries.hasNext()){
-                ConcurrentHashMap.Entry entry = entries.next();
-                GameHandler gameHandler = (GameHandler) entry.getValue();
-                if(gameHandler.checkUser(userName)){
-                    String context = gameHandler.getChessPlace();
-                    String nextPlayer = gameHandler.getNextPlayer();
-                    GameStatus gs = new GameStatus(context, nextPlayer);
-                    gs.room = (String) entry.getKey();
-                    return gs;
-                }
-            }
+            GameHandler gameHandler = roomList.get(playerList.get(userName));
+            GameStatus gs = new GameStatus(gameHandler.getChessPlace(), gameHandler.getNextPlayer());
+            gs.room = playerList.get(userName);
+            return gs;
         }
         return new GameStatus("NULL","NULL");
     }
