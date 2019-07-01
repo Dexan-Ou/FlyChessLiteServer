@@ -1,9 +1,12 @@
 package org.alayse.marsserver.logicserver;
 
 import org.alayse.marsserver.game.GameHandler;
+import org.alayse.marsserver.game.GameStatus;
 import org.alayse.marsserver.game.roomStatus;
 import org.apache.log4j.Logger;
 
+import java.util.Iterator;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class GameRoom {
@@ -53,9 +56,18 @@ public class GameRoom {
         }
     }
 
-    public String getPlayerRoom(String userName){
+    public GameStatus getPlayerRoom(String userName){
         if (playerList.containsKey(userName))
-            return playerList.get(userName);
-        return "";
+        {
+            Iterator<ConcurrentHashMap.Entry<String, GameHandler>> entries = roomList.entrySet().iterator();
+            while(entries.hasNext()){
+                ConcurrentHashMap.Entry entry = entries.next();
+                GameHandler gameHandler = (GameHandler) entry.getValue();
+                if(gameHandler.checkUser(userName)){
+                    return new GameStatus((String) entry.getKey(),userName);
+                }
+            }
+        }
+        return new GameStatus("","");
     }
 }
