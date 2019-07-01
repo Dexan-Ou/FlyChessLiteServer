@@ -1,6 +1,6 @@
 package org.alayse.marsserver.proxy;
 
-import org.alayse.marsserver.logicserver.GameRoom;
+import org.alayse.marsserver.logicserver.ConnectMask;
 import org.alayse.marsserver.logicserver.ProxySession;
 import org.alayse.marsserver.proto.Main;
 import org.alayse.marsserver.proto.game.Game;
@@ -16,6 +16,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.math.BigInteger;
 import java.security.MessageDigest;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,8 +52,6 @@ public class NetMsgHeaderHandler extends ChannelInboundHandlerAdapter {
     }
 
     private ConcurrentHashMap<ChannelHandlerContext, Long> linkTimeout = new ConcurrentHashMap<>();
-    private ConcurrentHashMap<ChannelHandlerContext, String> maskName = new ConcurrentHashMap<>();
-    private ConcurrentHashMap<String, ChannelHandlerContext> maskName_reverse = new ConcurrentHashMap<>();
     private ContextTimeoutChecker checker;
     private MessageDigest m;
 
@@ -68,13 +67,7 @@ public class NetMsgHeaderHandler extends ChannelInboundHandlerAdapter {
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         super.channelActive(ctx);
         long time = System.currentTimeMillis();
-        m = MessageDigest.getInstance("MD5");
-        String s = time + "";
-        m.update(s.getBytes(), 0, s.length());
-        String mask = new BigInteger(1, m.digest()).toString(16);
-        maskName.put(ctx, mask);
-        maskName_reverse.put(mask, ctx);
-        logger.info("client[" + mask + "] connected! " + ctx.toString());
+        logger.info("client connected! " + ctx.toString());
         linkTimeout.put(ctx, time);
     }
 
@@ -100,56 +93,68 @@ public class NetMsgHeaderHandler extends ChannelInboundHandlerAdapter {
             String webCgi = CMD_PATH_MAP.get(msgXp.cmdId);
             switch (msgXp.cmdId) {
                 case Main.CmdID.CMD_ID_HELLO_VALUE:
-                    InputStream requestDataStream = new ByteArrayInputStream(msgXp.body);
-                    InputStream inputStream = doHttpRequest(webCgi, requestDataStream);
-                    if (inputStream != null) {
-                        msgXp.body = IOUtils.toByteArray(inputStream);
-                        IOUtils.closeQuietly(requestDataStream);
+                    final Main.HelloRequest request_h = Main.HelloRequest.parseFrom(msgXp.body);
+                    String mask = checkAccessToken(ctx, request_h.getAccessToken(), true);
+                    if (mask != null) {
+                        Main.HelloResponse response = Main.HelloResponse.newBuilder()
+                                .setAccessToken(mask)
+                                .build();
+                        msgXp.body = response.toByteArray();
                         byte[] respBuf = msgXp.encode();
-                        logger.info(LogUtils.format( "client resp, cmdId=HELLO, seq=%d, resp.len=%d", msgXp.seq, msgXp.body == null ? 0 : msgXp.body.length));
+                        logger.info(LogUtils.format("client resp, cmdId=HELLO, request.access_token=%s, resp.access_token=%s", request_h.getAccessToken() == null ? "null" : request_h.getAccessToken(), mask));
                         ctx.writeAndFlush(ctx.alloc().buffer().writeBytes(respBuf));
                     }
                     break;
                 case Main.CmdID.CMD_ID_CREATEROOM_VALUE:
                     final Main.CreateRoomRequest request_c = Main.CreateRoomRequest.parseFrom(msgXp.body);
+                    mask = checkAccessToken(ctx, request_c.getAccessToken(), false);
                     Main.CreateRoomRequest request_c_new = Main.CreateRoomRequest.newBuilder()
-                            .setUser(maskName.get(ctx))
+                            .setAccessToken(mask)
+                            .setUser(request_c.getUser())
                             .setRoomname(request_c.getRoomname())
                             .setPlayerlimit(request_c.getPlayerlimit())
+                            .setBotnum(request_c.getBotnum())
                             .build();
-                    requestDataStream = new ByteArrayInputStream(request_c_new.toByteArray());
-                    inputStream = doHttpRequest(webCgi, requestDataStream);
+                    InputStream requestDataStream = new ByteArrayInputStream(request_c_new.toByteArray());
+                    InputStream inputStream = doHttpRequest(webCgi, requestDataStream);
                     if (inputStream != null) {
                         msgXp.body = IOUtils.toByteArray(inputStream);
+                        Main.MsgResponse msgResponse = Main.MsgResponse.parseFrom(msgXp.body);
                         IOUtils.closeQuietly(requestDataStream);
+                        if (msgResponse.getRetcode() == Main.MsgResponse.Error.ERR_START_VALUE)
+                            informGameStart(request_c.getRoomname());
                         byte[] respBuf = msgXp.encode();
-                        logger.info(LogUtils.format( "client resp, cmdId=CREATEROOM, seq=%d, resp.len=%d", msgXp.seq, msgXp.body == null ? 0 : msgXp.body.length));
+                        logger.info(LogUtils.format("client resp, cmdId=CREATEROOM, seq=%d, resp.len=%d", msgXp.seq, msgXp.body == null ? 0 : msgXp.body.length));
                         ctx.writeAndFlush(ctx.alloc().buffer().writeBytes(respBuf));
                     }
                     break;
                 case Main.CmdID.CMD_ID_JOINROOM_VALUE:
                     final Main.JoinRoomRequest request_j = Main.JoinRoomRequest.parseFrom(msgXp.body);
+                    mask = checkAccessToken(ctx, request_j.getAccessToken(), false);
                     Main.JoinRoomRequest request_j_new = Main.JoinRoomRequest.newBuilder()
-                            .setUser(maskName.get(ctx))
+                            .setAccessToken(mask)
+                            .setUser(request_j.getUser())
                             .setRoomname(request_j.getRoomname())
                             .build();
                     requestDataStream = new ByteArrayInputStream(request_j_new.toByteArray());
                     inputStream = doHttpRequest(webCgi, requestDataStream);
                     if (inputStream != null) {
                         msgXp.body = IOUtils.toByteArray(inputStream);
-                        Main.MsgResponse msgResponse = Main.MsgResponse.parseFrom(inputStream);
+                        Main.MsgResponse msgResponse = Main.MsgResponse.parseFrom(msgXp.body);
+                        IOUtils.closeQuietly(requestDataStream);
                         if (msgResponse.getRetcode() == Main.MsgResponse.Error.ERR_START_VALUE)
                             informGameStart(request_j.getRoomname());
-                        IOUtils.closeQuietly(requestDataStream);
                         byte[] respBuf = msgXp.encode();
-                        logger.info(LogUtils.format( "client resp, cmdId=JOINROOM, seq=%d, resp.len=%d", msgXp.seq, msgXp.body == null ? 0 : msgXp.body.length));
+                        logger.info(LogUtils.format("client resp, cmdId=JOINROOM, seq=%d, resp.len=%d", msgXp.seq, msgXp.body == null ? 0 : msgXp.body.length));
                         ctx.writeAndFlush(ctx.alloc().buffer().writeBytes(respBuf));
                     }
                     break;
                 case Main.CmdID.CMD_ID_LEFTROOM_VALUE:
                     final Main.JoinRoomRequest request_l = Main.JoinRoomRequest.parseFrom(msgXp.body);
+                    mask = checkAccessToken(ctx, request_l.getAccessToken(), false);
                     Main.JoinRoomRequest request_l_new = Main.JoinRoomRequest.newBuilder()
-                            .setUser(maskName.get(ctx))
+                            .setAccessToken(mask)
+                            .setUser(request_l.getUser())
                             .setRoomname(request_l.getRoomname())
                             .build();
                     requestDataStream = new ByteArrayInputStream(request_l_new.toByteArray());
@@ -158,21 +163,23 @@ public class NetMsgHeaderHandler extends ChannelInboundHandlerAdapter {
                         msgXp.body = IOUtils.toByteArray(inputStream);
                         IOUtils.closeQuietly(requestDataStream);
                         byte[] respBuf = msgXp.encode();
-                        logger.info(LogUtils.format( "client resp, cmdId=LEFTROOM, seq=%d, resp.len=%d", msgXp.seq, msgXp.body == null ? 0 : msgXp.body.length));
+                        logger.info(LogUtils.format("client resp, cmdId=LEFTROOM, seq=%d, resp.len=%d", msgXp.seq, msgXp.body == null ? 0 : msgXp.body.length));
                         ctx.writeAndFlush(ctx.alloc().buffer().writeBytes(respBuf));
                     }
                     break;
                 case Main.CmdID.CMD_ID_SEND_ACTION_VALUE:
                     final Game.SendActionRequest request_s = Game.SendActionRequest.parseFrom(msgXp.body);
+                    mask = checkAccessToken(ctx, request_s.getAccessToken(), false);
                     Game.SendActionRequest request_s_new = Game.SendActionRequest.newBuilder()
-                            .setFrom(maskName.get(ctx))
+                            .setAccessToken(mask)
+                            .setFrom(request_s.getFrom())
                             .setContent(request_s.getContent())
                             .setRoom(request_s.getRoom())
                             .build();
                     requestDataStream = new ByteArrayInputStream(request_s_new.toByteArray());
                     inputStream = doHttpRequest(webCgi, requestDataStream);
                     if (inputStream != null) {
-                        Game.SendActionProxyResponse response = Game.SendActionProxyResponse.parseFrom(inputStream);
+                        Game.SendActionProxyResponse response = Game.SendActionProxyResponse.parseFrom(IOUtils.toByteArray(inputStream));
                         if (response != null && response.getResponse().getErrCode() == Game.SendActionResponse.Error.ERR_OK_VALUE) {
                             pushMessage(response.getReceiverList(), response.getMsg());
                         }
@@ -245,6 +252,54 @@ public class NetMsgHeaderHandler extends ChannelInboundHandlerAdapter {
         }
     }
 
+    private void informGameStatus(String mask){
+        try {
+            Main.HelloRequest request = Main.HelloRequest.newBuilder()
+                    .setAccessToken(mask)
+                    .build();
+            InputStream requestDataStream = new ByteArrayInputStream(request.toByteArray());
+            InputStream inputStream = doHttpRequest("/game/hello", requestDataStream);
+            if (inputStream != null) {
+                Game.MessagePushProxy response = Game.MessagePushProxy.parseFrom(inputStream);
+                IOUtils.closeQuietly(requestDataStream);
+                if (!response.getContent().equals("NULL"))
+                {
+                    List<String> tmp = new ArrayList<>();
+                    tmp.add(mask);
+                    pushMessage(tmp, response);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String checkAccessToken(ChannelHandlerContext ctx, String access_token, boolean allowNew){
+        String mask;
+        if (access_token.equals("POI")){
+            if (!allowNew)
+                return access_token;
+            try {
+                m = MessageDigest.getInstance("MD5");
+                long time = System.currentTimeMillis();
+                String s = time + "";
+                m.update(s.getBytes(), 0, s.length());
+                mask = new BigInteger(1, m.digest()).toString(16);
+            }catch (Exception e){
+                mask = e.toString();
+            }
+        }
+        else
+            mask = access_token;
+        ChannelHandlerContext old_ctx = ConnectMask.getInstance().checkMask(mask);
+        if (old_ctx != ctx)
+        {
+            ConnectMask.getInstance().setMaskMap(mask, ctx);
+            informGameStatus(mask);
+        }
+        return mask;
+    }
+
     /**
      *
      */
@@ -255,15 +310,14 @@ public class NetMsgHeaderHandler extends ChannelInboundHandlerAdapter {
             logger.info(LogUtils.format("check longlink alive per 15 minutes, " + this));
             for (ChannelHandlerContext context : linkTimeout.keySet()) {
                 if (System.currentTimeMillis() - linkTimeout.get(context) > 15 * 60 * 1000) {
-                    String mask = maskName.get(context);
+                    String mask = ConnectMask.getInstance().maskName.get(context);
                     Main.JoinRoomRequest request_l_new = Main.JoinRoomRequest.newBuilder()
                             .setUser(mask)
                             .setRoomname("NULL")
                             .build();
                     InputStream requestDataStream = new ByteArrayInputStream(request_l_new.toByteArray());
                     doHttpRequest(CMD_PATH_MAP.get(Main.CmdID.CMD_ID_LEFTROOM_VALUE), requestDataStream);
-                    maskName.remove(context);
-                    maskName_reverse.remove(mask);
+                    ConnectMask.getInstance().removeChannel(context);
                     linkTimeout.remove(context);
                     logger.info(LogUtils.format("%s expired, deleted.", context.channel().toString()));
                 }
@@ -306,7 +360,7 @@ public class NetMsgHeaderHandler extends ChannelInboundHandlerAdapter {
                         msgXp.body = this.msg_nextplayer.toByteArray();
                     else
                         msgXp.body = this.msg_nonextplayer.toByteArray();
-                    final ChannelHandlerContext ctx = maskName_reverse.get(mask);
+                    final ChannelHandlerContext ctx = ConnectMask.getInstance().maskName_reverse.get(mask);
                     ctx.writeAndFlush(ctx.alloc().buffer().writeBytes(msgXp.encode()));
                 }
             }

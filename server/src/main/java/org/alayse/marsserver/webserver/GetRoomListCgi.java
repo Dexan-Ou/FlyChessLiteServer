@@ -22,23 +22,6 @@ import javax.ws.rs.core.StreamingOutput;
 
 @Path("/game/getroomlist")
 public class GetRoomListCgi {
-    static {
-        Properties pro = new Properties();
-        pro.put("log4j.rootLogger", "DEBUG,stdout,R");
-
-        pro.put("log4j.appender.stdout", "org.apache.log4j.ConsoleAppender");
-        pro.put("log4j.appender.stdout.layout", "org.apache.log4j.PatternLayout");
-        pro.put("log4j.appender.stdout.layout.ConversionPattern", "%5p [%t] (%F:%L) - %m%n");
-
-        pro.put("log4j.appender.R", "org.apache.log4j.DailyRollingFileAppender");
-        pro.put("log4j.appender.R.Threshold", "INFO");
-        pro.put("log4j.appender.R.File", "${user.home}/logs/mars/info_webserver.log");
-        pro.put("log4j.appender.R.DatePattern", ".yyyy-MM-dd");
-        pro.put("log4j.appender.R.layout", "org.apache.log4j.PatternLayout");
-        pro.put("log4j.appender.R.layout.ConversionPattern", "[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n");
-
-        PropertyConfigurator.configure(pro);
-    }
     Logger logger = Logger.getLogger(GetRoomListCgi.class.getName());
 
     private boolean checkType(int player, int playerLimit, int type){
@@ -86,7 +69,7 @@ public class GetRoomListCgi {
             return Response.ok(stream).build();
 
         } catch (Exception e) {
-            logger.info(LogUtils.format("request invalid", e));
+            logger.info(LogUtils.format("request invalid %s", e));
         }
 
         return null;

@@ -1,5 +1,6 @@
 package org.alayse.marsserver.webserver;
 
+import org.alayse.marsserver.game.GameStatus;
 import org.alayse.marsserver.logicserver.GameRoom;
 import org.alayse.marsserver.proto.game.Room;
 import org.alayse.marsserver.utils.LogUtils;
@@ -29,17 +30,13 @@ public class informGameStartCgi {
 
             logger.info(LogUtils.format("inform game start room=%s", request.getRoom()));
 
-            GameRoom.getInstance().roomList.get(request.getRoom()).startGame();
+            GameStatus gameStatus = GameRoom.getInstance().roomList.get(request.getRoom()).startGame();
 
-            Room.RoomResponseProxy.Builder responseBuilder = Room.RoomResponseProxy.newBuilder()
-                    .setContent("")
-                    .setNextplayer("");
-            int i = 0;
-            for (String user: GameRoom.getInstance().roomList.get(request.getRoom()).getRoomStatus().colorMap.keySet()) {
-                responseBuilder.setReceiver(i, user);
-                i++;
-            }
-            final Room.RoomResponseProxy response = responseBuilder.build();
+            final Room.RoomResponseProxy response = Room.RoomResponseProxy.newBuilder()
+                    .setContent(gameStatus.content)
+                    .setNextplayer(gameStatus.nextPlayer)
+                    .addAllReceiver(GameRoom.getInstance().roomList.get(request.getRoom()).getRoomStatus().colorMap.keySet())
+                    .build();
 
             final StreamingOutput stream = new StreamingOutput() {
                 public void write(OutputStream os) throws IOException {
@@ -49,7 +46,7 @@ public class informGameStartCgi {
             return Response.ok(stream).build();
 
         } catch (Exception e) {
-            logger.info(LogUtils.format("%s", e));
+            logger.info(LogUtils.format("request invalid %s", e));
         }
 
         return null;
