@@ -52,13 +52,13 @@ public class HelloCgi {
 
             logger.info(LogUtils.format("request hello, check username=%s", request.getAccessToken()));
 
-            String roomName = GameRoom.getInstance().getPlayerRoom(request.getAccessToken());
-            String content = "NULL";
+            GameStatus roomName = GameRoom.getInstance().getPlayerRoom(request.getAccessToken());
+
 
             final Game.MessagePushProxy response = Game.MessagePushProxy.newBuilder()
-                    .setRoom(roomName)
-                    .setContent(content)
-                    .setNextplayer("")
+                    .setRoom(roomName.room)
+                    .setContent(roomName.content)
+                    .setNextplayer(roomName.nextPlayer)
                     .build();
 
             final StreamingOutput stream = new StreamingOutput() {
