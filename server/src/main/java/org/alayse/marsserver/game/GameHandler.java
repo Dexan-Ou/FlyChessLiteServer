@@ -60,13 +60,14 @@ public class GameHandler {
     }
 
     public GameStatus startGame(){
-        game = new Game(getPlayerSize(), 0);
+        game = new Game(getPlayerSize(), 4-getPlayerSize());
         return new GameStatus("game start", this.joinPlayer.getFirst());
     }
     public GameStatus runOneRound(String content){
         String actions = game.run(content);
         String actionArray[] = actions.split(";");
         int order = Integer.parseInt(actionArray[actionArray.length - 1].split(",")[0].substring(1));
+        if (order == -1) return new GameStatus(actions, "");
         Set<Map.Entry<String,Integer>> entrySet = rs.colorMap.entrySet();
         Iterator<Map.Entry<String,Integer>> it = entrySet.iterator();
         String nextplayer = "";
@@ -85,5 +86,4 @@ public class GameHandler {
         }
         return new GameStatus(actionSequence, nextplayer);
     }
-
 }
