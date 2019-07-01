@@ -11,6 +11,7 @@ public class GameHandler {
     int playerLimit;
     roomStatus rs = new roomStatus();
     Game game;
+    int order;
     public GameHandler(String roomName, int playerLimit){
         this.roomName=roomName;
         this.playerLimit=playerLimit;
@@ -66,8 +67,8 @@ public class GameHandler {
     public GameStatus runOneRound(String content){
         String actions = game.run(content);
         String actionArray[] = actions.split(";");
-        int order = Integer.parseInt(actionArray[actionArray.length - 1].split(",")[0].substring(1));
-        if (order == -1) return new GameStatus(actions, "");
+        order = Integer.parseInt(actionArray[actionArray.length - 1].split(",")[0].substring(1));
+        if (order == -1) return new GameStatus(actions, "NULL");
         Set<Map.Entry<String,Integer>> entrySet = rs.colorMap.entrySet();
         Iterator<Map.Entry<String,Integer>> it = entrySet.iterator();
         String nextplayer = "";
@@ -85,5 +86,11 @@ public class GameHandler {
             actionSequence = actionSequence + actionArray[i] + ";";
         }
         return new GameStatus(actionSequence, nextplayer);
+    }
+    public String getChessPlace(){
+        return game.getPlace();
+    }
+    public String getNextPlayer(){
+        return rs.colorMapReverse.get(order);
     }
 }
