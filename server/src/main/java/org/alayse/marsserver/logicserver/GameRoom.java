@@ -64,10 +64,14 @@ public class GameRoom {
                 ConcurrentHashMap.Entry entry = entries.next();
                 GameHandler gameHandler = (GameHandler) entry.getValue();
                 if(gameHandler.checkUser(userName)){
-                    return new GameStatus((String) entry.getKey(),userName);
+                    String context = gameHandler.getChessPlace();
+                    String nextPlayer = gameHandler.getNextPlayer();
+                    GameStatus gs = new GameStatus(context, nextPlayer);
+                    gs.room = (String) entry.getKey();
+                    return gs;
                 }
             }
         }
-        return new GameStatus("","");
+        return new GameStatus("NULL","NULL");
     }
 }
