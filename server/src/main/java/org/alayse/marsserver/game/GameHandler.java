@@ -59,9 +59,9 @@ public class GameHandler {
         return joinPlayer.size();
     }
 
-    public String startGame(){
+    public GameStatus startGame(){
         game = new Game(getPlayerSize(), 0);
-        return "game start";
+        return new GameStatus("game start", this.joinPlayer.getFirst());
     }
     public GameStatus runOneRound(String content){
         String actions = game.run(content);
