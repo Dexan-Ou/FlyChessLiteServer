@@ -44,9 +44,12 @@ public class GameHandler {
     }
 
     public boolean leftRoom(String userName){
-        if (!this.checkUser(userName))
+        if (!this.checkUser(userName)) {
             return false;
+        }
         joinPlayer.remove(userName);
+        int color = rs.colorMap.get(userName);
+        game.setPlayerAI(color);
         rs.colorMapReverse.remove(rs.colorMap.get(userName));
         rs.colorMap.remove(userName);
         return true;

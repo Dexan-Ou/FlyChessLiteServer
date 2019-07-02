@@ -23,6 +23,9 @@ public class Game {
         order=0;
         roll=0;
     }
+    public void setPlayerAI(int id){
+        this.players[id].setAi(1);
+    }
     private void nextOrder(){
         order=(order+1)%p_number;
         roll=0;
