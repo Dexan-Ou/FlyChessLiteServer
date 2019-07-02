@@ -46,8 +46,11 @@ public class GameRoom {
 
     public void leftRoom(String userName){
         if (playerList.containsKey(userName)) {
-            roomList.get(playerList.get(userName)).leftRoom(userName);
+            String roomName = playerList.get(userName);
+            roomList.get(roomName).leftRoom(userName);
             playerList.remove(userName);
+            if (roomList.get(roomName).getPlayerSize() <= 0)
+                roomList.remove(roomName);
         }
     }
 
