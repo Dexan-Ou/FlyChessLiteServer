@@ -4,14 +4,12 @@ import org.alayse.marsserver.logicserver.GameRoom;
 import org.alayse.marsserver.proto.Main;
 import org.alayse.marsserver.utils.LogUtils;
 import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Properties;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -24,14 +22,14 @@ import javax.ws.rs.core.StreamingOutput;
 public class GetRoomListCgi {
     Logger logger = Logger.getLogger(GetRoomListCgi.class.getName());
 
-    private boolean checkType(int player, int playerLimit, int type){
+    private boolean checkType(int roomStatus, int type){
         if (type == Main.RoomListRequest.FilterType.DEFAULT_VALUE)
             return true;
         if (type == Main.RoomListRequest.FilterType.ALL_VALUE)
             return true;
-        if (type == Main.RoomListRequest.FilterType.EMPTY_VALUE && player < playerLimit)
+        if (type == Main.RoomListRequest.FilterType.EMPTY_VALUE && roomStatus < 1)
             return true;
-        if (type == Main.RoomListRequest.FilterType.FULL_VALUE && player >= playerLimit)
+        if (type == Main.RoomListRequest.FilterType.FULL_VALUE && roomStatus > 0)
             return true;
         return false;
     }
@@ -49,7 +47,7 @@ public class GetRoomListCgi {
             for (String key: GameRoom.getInstance().roomList.keySet()){
                 int player = GameRoom.getInstance().roomList.get(key).getPlayerSize();
                 int playerLimit = GameRoom.getInstance().roomList.get(key).getPlayerLimit();
-                if (checkType(player, playerLimit, request.getType())){
+                if (checkType(GameRoom.getInstance().roomList.get(key).getRoomStatus().status, request.getType())){
                     roomList.add(Main.Room.newBuilder()
                                     .setName(key)
                                     .setPlayer(player)

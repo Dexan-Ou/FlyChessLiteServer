@@ -5,8 +5,6 @@ import org.alayse.marsserver.game.GameStatus;
 import org.alayse.marsserver.game.roomStatus;
 import org.apache.log4j.Logger;
 
-import java.util.Iterator;
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class GameRoom {
@@ -25,34 +23,34 @@ public class GameRoom {
         playerList = new ConcurrentHashMap<>();
     }
 
-    public boolean createRoom(String userName, String roomName, int playerLimit){
-        if (roomList.containsKey(roomName))
+    public boolean createRoom(String userName, String roomName, int playerLimit, int botNum){
+        if (roomList.containsKey(roomName) || botNum > playerLimit - 1 || botNum < 0 || playerLimit <= 0)
             return false;
-        roomList.put(roomName, new GameHandler(roomName,playerLimit));
+        roomList.put(roomName, new GameHandler(roomName, playerLimit, botNum));
         this.joinRoom(userName, roomName);
         return true;
     }
 
     public roomStatus joinRoom(String userName, String roomName){
-        if (!roomList.containsKey(roomName)){
+        if (!roomList.containsKey(roomName) || playerList.containsKey(userName)){
             roomStatus rs = new roomStatus();
             rs.status = -1;
             return rs;
         }
         final GameHandler gameHandler = roomList.get(roomName);
-        if (gameHandler.getPlayerSize() >= gameHandler.getPlayerLimit()) {
-            roomStatus rs = gameHandler.getRoomStatus();
-            rs.status = -1;
-            return rs;
-        }
-        playerList.put(userName, roomName);
-        return gameHandler.joinRoom(userName);
+        roomStatus rs = gameHandler.joinRoom(userName);
+        if (rs.status >= 0)
+            playerList.put(userName, roomName);
+        return rs;
     }
 
     public void leftRoom(String userName){
         if (playerList.containsKey(userName)) {
-            roomList.get(playerList.get(userName)).leftRoom(userName);
+            String roomName = playerList.get(userName);
+            roomList.get(roomName).leftRoom(userName);
             playerList.remove(userName);
+            if (roomList.get(roomName).getPlayerSize() <= 0)
+                roomList.remove(roomName);
         }
     }
 
@@ -65,5 +63,15 @@ public class GameRoom {
             return gs;
         }
         return new GameStatus("NULL","NULL");
+    }
+
+    public void endGame(String roomName){
+        if (!roomList.containsKey(roomName))
+            return;
+        String[] list = roomList.get(roomName).getJoinPlayerList();
+        for (String player: list){
+            playerList.remove(player);
+        }
+        roomList.remove(roomName);
     }
 }
