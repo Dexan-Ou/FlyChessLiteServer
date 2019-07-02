@@ -32,7 +32,7 @@ public class CreateRoomCgi {
             int retCode = Main.MsgResponse.Error.ERR_OK_VALUE;
             String errMsg = "congratulations, " + request.getUser();
 
-            if (!GameRoom.getInstance().createRoom(request.getAccessToken(),request.getRoomname(), request.getPlayerlimit())){
+            if (!GameRoom.getInstance().createRoom(request.getAccessToken(),request.getRoomname(), request.getPlayerlimit(), request.getBotnum())){
                 retCode = Main.MsgResponse.Error.ERR_FAIL_VALUE;
                 errMsg = "congratulations, " + request.getUser();
             }
