@@ -24,7 +24,7 @@ public class GameRoom {
     }
 
     public boolean createRoom(String userName, String roomName, int playerLimit, int botNum){
-        if (roomList.containsKey(roomName) || botNum > playerLimit - 1 || botNum <= 0 || playerLimit <= 0)
+        if (roomList.containsKey(roomName) || botNum > playerLimit - 1 || botNum < 0 || playerLimit <= 0)
             return false;
         roomList.put(roomName, new GameHandler(roomName, playerLimit, botNum));
         this.joinRoom(userName, roomName);
