@@ -61,4 +61,14 @@ public class GameRoom {
         }
         return new GameStatus("NULL","NULL");
     }
+
+    public void endGame(String roomName){
+        if (!roomList.containsKey(roomName))
+            return;
+        String[] list = roomList.get(roomName).getJoinPlayerList();
+        for (String player: list){
+            playerList.remove(player);
+        }
+        roomList.remove(roomName);
+    }
 }

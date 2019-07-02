@@ -35,6 +35,9 @@ public class SendActionCgi {
             String errMsg = "congratulations, " + request.getFrom();
 
             GameStatus changelog = GameRoom.getInstance().roomList.get(request.getRoom()).runOneRound(request.getContent());
+            if (GameRoom.getInstance().roomList.get(request.getRoom()).getRoomStatus().status==3){
+                GameRoom.getInstance().endGame(request.getRoom());
+            }
             final Game.SendActionProxyResponse response = Game.SendActionProxyResponse.newBuilder()
                     .setResponse(Game.SendActionResponse.newBuilder()
                             .setErrCode(retCode)

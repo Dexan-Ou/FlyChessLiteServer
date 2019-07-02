@@ -1,5 +1,6 @@
 package org.alayse.marsserver.game;
 
+import java.util.List;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
 public class GameHandler {
@@ -64,7 +65,10 @@ public class GameHandler {
         String actions = game.run(content);
         String actionArray[] = actions.split(";");
         order = Integer.parseInt(actionArray[actionArray.length - 1].split(",")[0].substring(1));
-        if (order == -1) return new GameStatus(actions, "NULL");
+        if (order == -1) {
+            rs.status = 3;
+            return new GameStatus(actions, "NULL");
+        }
         String nextPlayer = this.getNextPlayer();
         String actionSequence = "";
         for(int i = 0;i < actionArray.length - 1;i ++){
@@ -77,5 +81,8 @@ public class GameHandler {
     }
     public String getNextPlayer(){
         return rs.colorMapReverse.get(order);
+    }
+    public String[] getJoinPlayerList(){
+        return this.joinPlayer.toArray(new String[0]);
     }
 }
