@@ -1,7 +1,4 @@
-package com.example.zero.test;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
+package org.alayse.marsserver.game;
 
 import java.util.Enumeration;
 import java.util.StringTokenizer;
