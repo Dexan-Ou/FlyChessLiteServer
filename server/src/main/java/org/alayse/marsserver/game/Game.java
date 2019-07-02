@@ -109,7 +109,7 @@ public class Game {
                 players[color].setChesses(chess, c_id);
                 String act = "(" + String.valueOf(color) + "," + String.valueOf(place) + "," + String.valueOf(chess.getPlace()) + ")";
                 action.add(act);
-            } else if (place == (color * 13 + 17) % 52) {
+            } else if (place == (color * 13 + 13) % 52) {
                 chess.setPlace((place + 4) % 52);
                 players[color].setChesses(chess, c_id);
                 String act = "(" + String.valueOf(color) + "," + String.valueOf(place) + "," + String.valueOf(chess.getPlace()) + ")";
@@ -127,7 +127,7 @@ public class Game {
                         eatChess(c_id, chess.getPlace());
                     }
                 }
-            } else if (place == (color * 13 + 21) % 52) {
+            } else if (place == (color * 13 + 17) % 52) {
                 chess.setPlace(54 + ((color + 2) % 4) * 6);
                 players[color].setChesses(chess, c_id);
                 String act = "(" + String.valueOf(color) + "," + String.valueOf(place) + "," + String.valueOf(chess.getPlace()) + ")";
