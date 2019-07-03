@@ -3,6 +3,7 @@ package org.alayse.marsserver.game;
 import java.util.Enumeration;
 import java.util.StringTokenizer;
 import java.util.Vector;
+import java.util.logging.Logger;
 
 public class Game {
     private Player[] players;
@@ -10,6 +11,7 @@ public class Game {
     private int order;
     private int roll;
     private Vector action=new Vector();
+    Logger logger = Logger.getLogger("Game Start");
 
     public Game(int n,int ai){
         p_number=n+ai;
@@ -23,8 +25,8 @@ public class Game {
         order=0;
         roll=0;
     }
-    public void setPlayerAI(int id){
-        this.players[id].setAi(1);
+    public void setPlayerAI(int id,int ai){
+        this.players[id].setAi(ai);
     }
     private void nextOrder(){
         order=(order+1)%p_number;
@@ -50,37 +52,37 @@ public class Game {
         return -1;
     }
     private void flyChess(int c_id,int step){
-            int color = c_id / 4;
-            int place = players[color].getChess(c_id).getPlace();
-            Chess chess;
-            if (place>75&&place!=80+color*5) {
-                chess = players[color].getChess(c_id);
-                if (step == 6 && chess.getState() == -1) {
-                    int next_place = nextPlace(color, place, 1);
-                    chess.setPlace(next_place);
-                    chess.setState(0);
-                    String act = "(" + String.valueOf(color) + "," + String.valueOf(place) + "," + String.valueOf(next_place) + ")";
-                    action.add(act);
-                }
-            } else {
-                String act;
-                int next_place = place;
-                int direction = 1;
-                while (step != 0) {
-                    int past = next_place;
-                    next_place = nextPlace(color, next_place, direction);
-                    chess = players[color].getChess(c_id);
-                    chess.setPlace(next_place);
-                    players[color].setChesses(chess, c_id);
-                    act = "(" + String.valueOf(color) + "," + String.valueOf(past) + "," + String.valueOf(next_place) + ")";
-                    action.add(act);
-                    if (isEnd(color, next_place)) {
-                        direction = -direction;
-                    }
-                    step--;
-                }
+        int color = c_id / 4;
+        int place = players[color].getChess(c_id).getPlace();
+        Chess chess;
+        if (place>75&&place!=80+color*5) {
+            chess = players[color].getChess(c_id);
+            if (step == 6 && chess.getState() == -1) {
+                int next_place = nextPlace(color, place, 1);
+                chess.setPlace(next_place);
+                chess.setState(0);
+                String act = "(" + String.valueOf(color) + "," + String.valueOf(place) + "," + String.valueOf(next_place) + ")";
+                action.add(act);
             }
-            flyPlace(c_id);
+        } else {
+            String act;
+            int next_place = place;
+            int direction = 1;
+            while (step != 0) {
+                int past = next_place;
+                next_place = nextPlace(color, next_place, direction);
+                chess = players[color].getChess(c_id);
+                chess.setPlace(next_place);
+                players[color].setChesses(chess, c_id);
+                act = "(" + String.valueOf(color) + "," + String.valueOf(past) + "," + String.valueOf(next_place) + ")";
+                action.add(act);
+                if (isEnd(color, next_place)) {
+                    direction = -direction;
+                }
+                step--;
+            }
+        }
+        flyPlace(c_id);
     }
     private int nextPlace(int color,int place,int direction){
         int next_place;
@@ -105,7 +107,7 @@ public class Game {
         int color=c_id/4;
         Chess chess=players[color].getChess(c_id);
         int place=chess.getPlace();
-        if(eatChess(c_id,place)){
+        if(eatChess(c_id,place)==0){
             if (isEnd(color, place)) {
                 chess.setState(1);
                 chess.setPlace(76 + color + c_id);
@@ -117,12 +119,12 @@ public class Game {
                 players[color].setChesses(chess, c_id);
                 String act = "(" + String.valueOf(color) + "," + String.valueOf(place) + "," + String.valueOf(chess.getPlace()) + ")";
                 action.add(act);
-                if(eatChess(c_id, chess.getPlace())) {
+                if(eatChess(c_id, chess.getPlace())==0) {
                     chess.setPlace(54 + ((color + 2) % 4) * 6);
                     players[color].setChesses(chess, c_id);
                     act = "(" + String.valueOf(color) + "," + String.valueOf((place + 4) % 52) + "," + String.valueOf(chess.getPlace()) + ")";
                     action.add(act);
-                    if(eatChess(c_id, chess.getPlace())) {
+                    if(eatChess(c_id, chess.getPlace())<2) {
                         chess.setPlace((place + 16) % 52);
                         players[color].setChesses(chess, c_id);
                         act = "(" + String.valueOf(color) + "," + String.valueOf(54 + ((color + 2) % 4) * 6) + "," + String.valueOf(chess.getPlace()) + ")";
@@ -135,12 +137,12 @@ public class Game {
                 players[color].setChesses(chess, c_id);
                 String act = "(" + String.valueOf(color) + "," + String.valueOf(place) + "," + String.valueOf(chess.getPlace()) + ")";
                 action.add(act);
-                if(eatChess(c_id, chess.getPlace())) {
+                if(eatChess(c_id, chess.getPlace())<2) {
                     chess.setPlace((place + 12) % 52);
                     players[color].setChesses(chess, c_id);
                     act = "(" + String.valueOf(color) + "," + String.valueOf(54 + ((color + 2) % 4) * 6) + "," + String.valueOf(chess.getPlace()) + ")";
                     action.add(act);
-                    if(eatChess(c_id, chess.getPlace())) {
+                    if(eatChess(c_id, chess.getPlace())==0) {
                         chess.setPlace((place + 16) % 52);
                         players[color].setChesses(chess, c_id);
                         act = "(" + String.valueOf(color) + "," + String.valueOf((place + 12) % 52) + "," + String.valueOf(chess.getPlace()) + ")";
@@ -157,7 +159,7 @@ public class Game {
             }
         }
     }
-    private boolean eatChess(int c_id,int place){
+    private int eatChess(int c_id,int place){
         int c=0;
         int color=c_id/4;
         for(int i=0;i<p_number;i++){
@@ -181,9 +183,8 @@ public class Game {
             chess.setState(-1);
             String act="("+String.valueOf(color)+","+String.valueOf(place)+","+String.valueOf(chess.getPlace())+")";
             action.add(act);
-            return false;
         }
-        return true;
+        return c;
     }
     private int aiChoice(int color,int step){
         int[] values=new int[4];
@@ -276,18 +277,30 @@ public class Game {
                 action.add("("+String.valueOf(order)+",-1)");
             }
         }
-		else{
+        else{
             action.add("(-1,"+String.valueOf(w)+")");
         }
     }
     private String getActionString(){
         String str="";
+
+        String test_str="";
+        logger.info("New Round");
+
         for(int i = 0;i < action.size() - 1;i ++){
             String s=(String)action.get(i);
+
             if(s.split(",").length!=2) {
+                test_str+=s+";";
+            }
+
+            if(s.split(",").length==3) {
                 str += s + ";";
             }
         }
+
+        logger.info(test_str+(String)action.get(action.size()-1));
+
         str+=(String)action.get(action.size()-1);
         return str;
     }
@@ -305,7 +318,7 @@ public class Game {
         int next_player=Integer.valueOf(act.split(",")[0].substring(1));
         while(next_player!=-1&&players[next_player].getAi()==1){
             int r=rollStep();
-            //action.add("("+String.valueOf(r)+")");
+            action.add("("+String.valueOf(r)+")");
             oneRound(1,-1,r);
             act=(String) action.get(action.size()-1);
             next_player=Integer.valueOf(act.split(",")[0].substring(1));
