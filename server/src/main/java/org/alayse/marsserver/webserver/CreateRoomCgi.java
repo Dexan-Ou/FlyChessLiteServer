@@ -37,7 +37,7 @@ public class CreateRoomCgi {
                 errMsg = "congratulations, " + request.getUser();
             }
             else {
-                if (GameRoom.getInstance().roomList.get(request.getRoomname()).getPlayerSize() >= request.getPlayerlimit())
+                if (GameRoom.getInstance().roomList.get(request.getRoomname()).getPlayerSize() >= GameRoom.getInstance().roomList.get(request.getRoomname()).getPlayerLimit())
                     retCode = Main.MsgResponse.Error.ERR_START_VALUE;
             }
 
