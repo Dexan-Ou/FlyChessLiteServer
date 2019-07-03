@@ -49,7 +49,9 @@ public class GameHandler {
         }
         joinPlayer.remove(userName);
         int color = rs.colorMap.get(userName);
-        game.setPlayerAI(color);
+        if(rs.status > 1) {
+            game.setPlayerAI(color,1);
+        }
         rs.colorMapReverse.remove(rs.colorMap.get(userName));
         rs.colorMap.remove(userName);
         return true;
