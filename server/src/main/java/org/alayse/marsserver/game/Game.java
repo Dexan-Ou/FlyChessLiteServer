@@ -5,6 +5,7 @@ import java.util.StringTokenizer;
 import java.util.Vector;
 import java.util.logging.Logger;
 
+
 public class Game {
     private Player[] players;
     private int p_number;
@@ -244,8 +245,8 @@ public class Game {
         if(roll==2&&step==6){
             for(int i=0;i<4;i++){
                 Chess chess=players[order].getChess(i);
-                if(chess.getState()!=-1){
-                    String act="("+String.valueOf(order)+","+String.valueOf(chess.getPlace())+","+String.valueOf(-5-chess.getC_id())+")";
+                if(chess.getState()==0){
+                    String act="("+String.valueOf(order)+","+String.valueOf(chess.getPlace())+","+String.valueOf(76+order+chess.getC_id())+")";
                     action.add(act);
                     chess.setState(-1);
                     chess.setPlace(76+order+chess.getC_id());
