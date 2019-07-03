@@ -5,7 +5,6 @@ import java.util.StringTokenizer;
 import java.util.Vector;
 import java.util.logging.Logger;
 
-
 public class Game {
     private Player[] players;
     private int p_number;
@@ -26,8 +25,18 @@ public class Game {
         order=0;
         roll=0;
     }
-    public void setPlayerAI(int id,int ai){
+    public String setPlayerAI(int id,int ai){
         this.players[id].setAi(ai);
+        action.clear();
+        int w=isWin();
+        if(w==-1){
+            action.add("("+String.valueOf(order)+",-1)");
+        }
+        else{
+            action.add("(-1,"+String.valueOf(w)+")");
+        }
+        aiRun();
+        return getActionString();
     }
     private void nextOrder(){
         order=(order+1)%p_number;
