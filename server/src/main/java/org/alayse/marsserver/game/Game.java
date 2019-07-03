@@ -1,5 +1,6 @@
 package org.alayse.marsserver.game;
 
+
 import java.util.Enumeration;
 import java.util.StringTokenizer;
 import java.util.Vector;
@@ -22,9 +23,6 @@ public class Game {
         }
         order=0;
         roll=0;
-    }
-    public void setPlayerAI(int id){
-        this.players[id].setAi(1);
     }
     private void nextOrder(){
         order=(order+1)%p_number;
@@ -148,7 +146,7 @@ public class Game {
                         eatChess(c_id, chess.getPlace());
                     }
                 }
-            } else if ((place % 4) == (color + 1) % 4 && place != (49 + color * 13) % 52) {
+            } else if ((place % 4) == (color + 1) % 4 && place < 52 && place != (49 + color * 13) % 52) {
                 chess.setPlace((place + 4) % 52);
                 players[color].setChesses(chess, c_id);
                 String act = "(" + String.valueOf(color) + "," + String.valueOf(place) + "," + String.valueOf(chess.getPlace()) + ")";
@@ -305,6 +303,7 @@ public class Game {
         int next_player=Integer.valueOf(act.split(",")[0].substring(1));
         while(next_player!=-1&&players[next_player].getAi()==1){
             int r=rollStep();
+            //action.add("("+String.valueOf(r)+")");
             oneRound(1,-1,r);
             act=(String) action.get(action.size()-1);
             next_player=Integer.valueOf(act.split(",")[0].substring(1));
@@ -348,7 +347,7 @@ public class Game {
             for (int i = 0; i < 3; i++) {
                 int r = rollStep();
                 System.out.println("roll: "+String.valueOf(r));
-                String str=run("1,"+String.valueOf(r)+",-1");
+                String str=run("1," + String.valueOf(r) + ",-1");
                 System.out.println(str);
                 String[] str_list=str.split(";");
                 str_list=str_list[str_list.length-1].split(",");
